@@ -1,0 +1,2117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mother Dashboard – Shurokha</title>
+  <link rel="icon" type="image/png" href="logo-transparent.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --primary-color: #6c5ce7;
+      --secondary-color: #a29bfe;
+      --accent-color: #fd79a8;
+      --success-color: #00b894;
+      --warning-color: #fdcb6e;
+      --light-bg: #f8f9fa;
+      --sidebar-width: 280px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .dashboard-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: var(--sidebar-width);
+      background: linear-gradient(180deg, var(--primary-color) 0%, #5f3dc4 100%);
+      color: white;
+      padding: 0;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 1000;
+      box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .sidebar-header {
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .logo-circle {
+      width: 40px;
+      height: 40px;
+      background: #FF6633;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(255, 102, 51, 0.3);
+    }
+
+    .sidebar-header h3 {
+      margin: 0;
+      font-weight: 700;
+      font-size: 1.5rem;
+      background: linear-gradient(45deg, #a29bfe, #fd79a8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-menu {
+      padding: 1rem 0;
+    }
+
+    .nav-item {
+      margin: 0.5rem 1rem;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-link:hover {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      transform: translateX(5px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .nav-link.active {
+      background: linear-gradient(135deg, var(--secondary-color), #8c7ae6);
+      color: white;
+      box-shadow: 0 4px 15px rgba(162, 155, 254, 0.3);
+    }
+
+    .nav-link i {
+      margin-right: 12px;
+      font-size: 1.2rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: width 0.5s ease;
+    }
+
+    .nav-link:hover::before {
+      width: 100%;
+    }
+
+    .main-content {
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      padding: 2rem;
+      background: var(--light-bg);
+      min-height: 100vh;
+    }
+
+    body {
+      background: linear-gradient(120deg, #e0e7ff 0%, #f0fdfa 100%);
+    }
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .overview-card {
+      background: #fff;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 24px rgba(30,58,138,0.10);
+      padding: 1.5rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: box-shadow 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+      border: 1.5px solid #e0e7ff;
+      animation: fadeInUp 0.7s;
+    }
+    .overview-card:hover {
+      box-shadow: 0 8px 32px rgba(16,185,129,0.18);
+      transform: translateY(-6px) scale(1.03);
+    }
+    .overview-icon {
+      font-size: 2.2rem;
+      border-radius: 50%;
+      padding: 0.7rem;
+      background: linear-gradient(135deg, #e0e7ff 60%, #f0fdfa 100%);
+      color: var(--primary);
+      box-shadow: 0 2px 8px rgba(30,58,138,0.08);
+      margin-right: 0.5rem;
+    }
+    .overview-card.bp .overview-icon { color: #1e3a8a; background: #e0e7ff; }
+    .overview-card.weight .overview-icon { color: #10b981; background: #e0f7f4; }
+    .overview-card.hemo .overview-icon { color: #a21caf; background: #f3e8ff; }
+    .overview-card.gest .overview-icon { color: #f59e42; background: #fef9c3; }
+    .overview-card.risk .overview-icon { color: #ef4444; background: #fee2e2; }
+    .overview-card .card-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 0.2rem; }
+    .overview-card .card-value { font-size: 1.2rem; font-weight: 600; }
+    .overview-card .card-status { font-size: 0.98rem; color: #666; }
+    .next-appointment-card {
+      background: linear-gradient(120deg, #f0fdfa 0%, #e0e7ff 100%);
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 24px rgba(30,58,138,0.10);
+      padding: 1.5rem 1.2rem;
+      margin-bottom: 2rem;
+      border: 1.5px solid #e0e7ff;
+      animation: fadeInUp 0.8s;
+    }
+    .next-appointment-card .btn {
+      background: var(--primary-light);
+      color: #fff;
+      border-radius: 0.7rem;
+      font-weight: 500;
+      margin-top: 0.7rem;
+      transition: background 0.2s;
+    }
+    .next-appointment-card .btn:hover {
+      background: var(--primary);
+    }
+    .overview-charts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .overview-chart-card {
+      background: #f6fbfc;
+      border-radius: 1.5rem;
+      box-shadow: 0 2px 12px rgba(30,58,138,0.08);
+      padding: 1.2rem 1rem;
+      border: 1.5px solid #e0e7ff;
+      animation: fadeInUp 0.9s;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .profile-icon-btn {
+      position: fixed;
+      top: 24px;
+      right: 36px;
+      background: none;
+      border: none;
+      outline: none;
+      font-size: 2rem;
+      color: var(--primary);
+      cursor: pointer;
+      z-index: 1100;
+    }
+    .profile-section {
+      position: relative;
+    }
+    
+    .profile-btn {
+      background: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      position: fixed;
+      top: 24px;
+      right: 36px;
+      z-index: 1100;
+    }
+    
+    .profile-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    .profile-dropdown {
+      position: absolute;
+      top: 60px;
+      right: 0;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+      position: fixed;
+      top: 84px;
+      right: 36px;
+      z-index: 1200;
+    }
+    
+    .profile-dropdown.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    
+    .profile-dropdown .dropdown-item {
+      padding: 12px 20px;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      color: var(--primary-color);
+      transition: all 0.3s ease;
+      border-radius: 0;
+      cursor: pointer;
+    }
+    
+    .profile-dropdown .dropdown-item:hover {
+      background: var(--light-bg);
+      color: var(--secondary-color);
+    }
+    
+    .profile-dropdown .dropdown-item:first-child {
+      border-radius: 12px 12px 0 0;
+    }
+    
+    .profile-dropdown .dropdown-item:last-child {
+      border-radius: 0 0 12px 12px;
+      border-top: 1px solid #eee;
+    }
+    .health-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .health-card {
+      background: #fff;
+      border-radius: 2rem;
+      box-shadow: 0 8px 32px rgba(30,58,138,0.12);
+      padding: 2.5rem 2rem;
+      min-height: 220px;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      transition: box-shadow 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+      border: 1.5px solid #e0e7ff;
+      animation: fadeInUp 0.7s;
+    }
+    .health-card:hover {
+      box-shadow: 0 8px 32px rgba(16,185,129,0.18);
+      transform: translateY(-6px) scale(1.03);
+    }
+    .health-card .card-title { font-size: 1.4rem; font-weight: bold; margin-bottom: 0.4rem; }
+    .health-card .card-value { font-size: 2.1rem; font-weight: 700; }
+    .health-card .card-status { font-size: 1.1rem; color: #666; }
+    .health-icon {
+      font-size: 3.2rem;
+      border-radius: 50%;
+      padding: 1.2rem;
+      background: linear-gradient(135deg, #e0e7ff 60%, #f0fdfa 100%);
+      color: var(--primary);
+      box-shadow: 0 2px 8px rgba(30,58,138,0.08);
+      margin-right: 0.5rem;
+    }
+    .medication-table, .lab-table {
+      background: #fff;
+      border-radius: 1.7rem;
+      box-shadow: 0 4px 24px rgba(30,58,138,0.10);
+      border: 1.5px solid #e0e7ff;
+      animation: fadeInUp 0.8s;
+      margin-bottom: 2.5rem;
+      overflow: hidden;
+      max-height: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+    .medication-table th, .lab-table th {
+      background: #f6fbfc;
+      color: var(--primary);
+      font-weight: 700;
+      border: none;
+      font-size: 1rem;
+      padding: 1rem 0.8rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .medication-table td, .lab-table td {
+      border: none;
+      vertical-align: middle;
+      font-size: 0.95rem;
+      padding: 0.9rem 0.8rem;
+    }
+    .medication-table .table, .lab-table .table {
+      margin: 0;
+      height: 100%;
+    }
+    .medication-table .table tbody, .lab-table .table tbody {
+      overflow-y: auto;
+      max-height: 280px;
+      display: block;
+    }
+    .medication-table .table thead, .lab-table .table thead {
+      display: block;
+    }
+    .medication-table .table thead tr, .lab-table .table thead tr,
+    .medication-table .table tbody tr, .lab-table .table tbody tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
+    .medication-table tr:hover, .lab-table tr:hover {
+      background: #f0fdfa;
+      transition: background 0.2s;
+    }
+    .lab-action-btn {
+      background: var(--primary-light);
+      color: #fff;
+      border-radius: 0.7rem;
+      font-size: 0.9rem;
+      padding: 0.4rem 1rem;
+      border: none;
+      transition: background 0.2s;
+    }
+    .lab-action-btn:hover {
+      background: var(--primary);
+    }
+    .medical-history-table {
+      background: #fff;
+      border-radius: 2rem;
+      box-shadow: 0 8px 32px rgba(30,58,138,0.12);
+      border: 1.5px solid #e0e7ff;
+      animation: fadeInUp 0.7s;
+      margin-bottom: 2.5rem;
+      overflow: hidden;
+    }
+    .medical-history-table th {
+      background: #f6fbfc;
+      color: var(--primary);
+      font-weight: 700;
+      border: none;
+      font-size: 1.2rem;
+      padding: 1.2rem 1rem;
+    }
+    .medical-history-table td {
+      border: none;
+      vertical-align: middle;
+      font-size: 1.1rem;
+      padding: 1.1rem 1rem;
+    }
+    .medical-history-table tr:hover {
+      background: #f0fdfa;
+      transition: background 0.2s;
+    }
+    .appointments-section {
+      margin-bottom: 2.5rem;
+    }
+    .calendar-card {
+      background: #fff;
+      border-radius: 2rem;
+      box-shadow: 0 8px 32px rgba(30,58,138,0.12);
+      border: 1.5px solid #e0e7ff;
+      animation: fadeInUp 0.7s;
+      margin-bottom: 2.5rem;
+      padding: 2rem 2rem 1.5rem 2rem;
+    }
+    .calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+    }
+    .calendar-nav-btn {
+      background: var(--primary-light);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 2.2rem;
+      height: 2.2rem;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .calendar-nav-btn:hover {
+      background: var(--primary);
+    }
+    .calendar-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 1.1rem;
+      margin-bottom: 0;
+    }
+    .calendar-table th {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      padding: 1rem 0.5rem;
+      border: none;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+    .calendar-table td {
+      background: #fff;
+      border: 1px solid #e0e7ff;
+      min-width: 90px;
+      height: 60px;
+      text-align: center;
+      vertical-align: top;
+      position: relative;
+      transition: background 0.2s;
+      font-size: 1.1rem;
+      color: #222;
+    }
+    .calendar-table td.today {
+      border: 2px solid var(--primary-light);
+      background: #e0e7ff;
+      font-weight: bold;
+    }
+    .calendar-table td.other-month {
+      color: #bdbdbd;
+      background: #f6fbfc;
+    }
+    .calendar-badge {
+      display: inline-block;
+      background: #fff;
+      color: var(--primary);
+      border: 2.5px solid var(--primary-light);
+      border-radius: 50%;
+      width: 2.1rem;
+      height: 2.1rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      line-height: 1.7rem;
+      margin-top: 0.2rem;
+      margin-bottom: 0.1rem;
+      box-shadow: 0 2px 8px rgba(30,58,138,0.10);
+      cursor: pointer;
+      transition: border 0.2s, background 0.2s, color 0.2s, transform 0.2s;
+      position: relative;
+    }
+    .calendar-badge.has-appointment {
+      background: var(--primary-light);
+      color: #fff;
+      border: 2.5px solid var(--primary);
+      transform: scale(1.08);
+    }
+    .calendar-badge:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      left: 50%;
+      top: 120%;
+      transform: translateX(-50%);
+      background: #222;
+      color: #fff;
+      padding: 0.3rem 0.7rem;
+      border-radius: 0.7rem;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      z-index: 10;
+      opacity: 0.95;
+    }
+    .upcoming-appointment-card {
+      background: linear-gradient(120deg, #f0fdfa 0%, #e0e7ff 100%);
+      border-radius: 2rem;
+      box-shadow: 0 4px 24px rgba(30,58,138,0.10);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 2.5rem;
+      border: 1.5px solid #e0e7ff;
+      animation: fadeInUp 0.8s;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .upcoming-appointment-card .btn {
+      border-radius: 0.7rem;
+      font-weight: 500;
+      margin-right: 0.7rem;
+      transition: background 0.2s;
+    }
+    .upcoming-appointment-card .btn-primary { background: var(--primary-light); color: #fff; }
+    .upcoming-appointment-card .btn-primary:hover { background: var(--primary); }
+    .upcoming-appointment-card .btn-danger { background: #ef4444; color: #fff; }
+    .upcoming-appointment-card .btn-danger:hover { background: #b91c1c; }
+    .past-appointments-table {
+      background: #fff;
+      border-radius: 1.7rem;
+      box-shadow: 0 4px 24px rgba(30,58,138,0.10);
+      border: 1.5px solid #e0e7ff;
+      animation: fadeInUp 0.8s;
+      margin-bottom: 2.5rem;
+      overflow: hidden;
+    }
+    .past-appointments-table th {
+      background: #f6fbfc;
+      color: var(--primary);
+      font-weight: 700;
+      border: none;
+      font-size: 1.2rem;
+      padding: 1.2rem 1rem;
+    }
+    .past-appointments-table td {
+      border: none;
+      vertical-align: middle;
+      font-size: 1.1rem;
+      padding: 1.1rem 1rem;
+    }
+    .past-appointments-table tr:hover {
+      background: #f0fdfa;
+      transition: background 0.2s;
+    }
+    .book-appointment-form {
+      background: #fff;
+      border-radius: 1.7rem;
+      box-shadow: 0 4px 24px rgba(30,58,138,0.10);
+      border: 1.5px solid #e0e7ff;
+      animation: fadeInUp 0.8s;
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 2.5rem;
+    }
+    .book-appointment-form label {
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+    .book-appointment-form input, .book-appointment-form select {
+      border-radius: 0.7rem;
+      border: 1.5px solid #e0e7ff;
+      padding: 0.7rem 1rem;
+      font-size: 1.1rem;
+      margin-bottom: 1.2rem;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+    .book-appointment-form input:focus, .book-appointment-form select:focus {
+      border: 1.5px solid var(--primary-light);
+      box-shadow: 0 2px 8px rgba(30,58,138,0.10);
+    }
+    .book-appointment-form .btn {
+      background: var(--primary-light);
+      color: #fff;
+      border-radius: 0.7rem;
+      font-weight: 600;
+      padding: 0.7rem 2rem;
+      font-size: 1.1rem;
+      transition: background 0.2s;
+    }
+    .book-appointment-form .btn:hover {
+      background: var(--primary);
+    }
+    .calendar-table td.appointment-day {
+      background: #e0f7f4 !important;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .calendar-table td.appointment-day:hover, .calendar-table td.appointment-day.active {
+      background: #10b98122 !important;
+    }
+    .calendar-tooltip {
+      display: none;
+      position: absolute;
+      left: 50%;
+      top: 110%;
+      transform: translateX(-50%);
+      background: #222;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 0.7rem;
+      font-size: 1rem;
+      white-space: nowrap;
+      z-index: 10;
+      opacity: 0.97;
+      box-shadow: 0 2px 8px rgba(30,58,138,0.10);
+    }
+    .calendar-table td.appointment-day:hover .calendar-tooltip,
+    .calendar-table td.appointment-day.active .calendar-tooltip {
+      display: block;
+    }
+    .reminder-cards {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .reminder-card {
+      background: #fff;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 24px rgba(30,58,138,0.10);
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      min-width: 260px;
+      min-height: 160px;
+      flex: 1 1 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      border-left: 6px solid #10b981;
+      transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+      position: relative;
+      animation: fadeInUp 0.7s;
+    }
+    .reminder-card.supplement { border-left-color: #f59e42; }
+    .reminder-card.calcium { border-left-color: #a21caf; }
+    .reminder-card.taken { border-left-color: #bdbdbd; opacity: 0.7; }
+    .reminder-card:hover {
+      box-shadow: 0 8px 32px rgba(16,185,129,0.18);
+      transform: translateY(-6px) scale(1.03);
+    }
+    .reminder-card .reminder-title {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .reminder-card .reminder-icon {
+      font-size: 1.5rem;
+    }
+    .reminder-card .reminder-time {
+      font-size: 1.1rem;
+      margin-bottom: 0.2rem;
+    }
+    .reminder-card .reminder-dosage {
+      font-size: 1.05rem;
+      margin-bottom: 1rem;
+    }
+    .reminder-card .reminder-toggle {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .reminder-switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+    .reminder-switch input { opacity: 0; width: 0; height: 0; }
+    .reminder-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #e0e7ff;
+      border-radius: 24px;
+      transition: background 0.3s;
+    }
+    .reminder-switch input:checked + .reminder-slider {
+      background: #10b981;
+    }
+    .reminder-slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+    .reminder-switch input:checked + .reminder-slider:before {
+      transform: translateX(20px);
+    }
+    .reminder-status {
+      font-size: 0.98rem;
+      color: #10b981;
+      font-weight: 600;
+    }
+    .reminder-card.taken .reminder-status { color: #bdbdbd; }
+    .vaccination-timeline {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+      overflow-x: auto;
+      padding: 1.5rem 1rem;
+      background: #f6fbfc;
+      border-radius: 1.5rem;
+      box-shadow: 0 2px 12px rgba(30,58,138,0.08);
+      min-height: 120px;
+      animation: fadeInUp 0.8s;
+    }
+    .timeline-node {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 120px;
+      z-index: 1;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .timeline-node.completed .timeline-dot { background: #10b981; }
+    .timeline-node.upcoming .timeline-dot { background: #f59e42; }
+    .timeline-node.missed .timeline-dot { background: #ef4444; }
+    .timeline-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #bdbdbd;
+      margin-bottom: 0.5rem;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 8px rgba(30,58,138,0.10);
+      transition: background 0.3s;
+    }
+    .timeline-label {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.2rem;
+    }
+    .timeline-date {
+      font-size: 0.98rem;
+      color: #666;
+    }
+    .timeline-node:hover {
+      transform: scale(1.08);
+      z-index: 2;
+    }
+    .timeline-tooltip {
+      display: none;
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #222;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 0.7rem;
+      font-size: 1rem;
+      white-space: nowrap;
+      z-index: 10;
+      opacity: 0.97;
+      box-shadow: 0 2px 8px rgba(30,58,138,0.10);
+    }
+    .timeline-node:hover .timeline-tooltip { display: block; }
+    .notification-settings {
+      margin-bottom: 2.5rem;
+    }
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 26px;
+      margin-right: 1rem;
+      vertical-align: middle;
+    }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #e0e7ff;
+      border-radius: 26px;
+      transition: background 0.3s;
+    }
+    .toggle-switch input:checked + .toggle-slider {
+      background: #10b981;
+    }
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+    .toggle-switch input:checked + .toggle-slider:before {
+      transform: translateX(22px);
+    }
+    .custom-reminder-form {
+      background: #fff;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 24px rgba(30,58,138,0.10);
+      border: 1.5px solid #e0e7ff;
+      animation: fadeInUp 0.8s;
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+    }
+    .custom-reminder-form .form-floating > .form-control:focus ~ label,
+    .custom-reminder-form .form-floating > .form-control:not(:placeholder-shown) ~ label {
+      opacity: 0.8;
+      transform: scale(0.95) translateY(-1.2rem) translateX(0.15rem);
+      color: var(--primary-light);
+    }
+    .custom-reminder-form .btn {
+      background: var(--primary-light);
+      color: #fff;
+      border-radius: 0.7rem;
+      font-weight: 600;
+      padding: 0.7rem 2rem;
+      font-size: 1.1rem;
+      transition: background 0.2s;
+    }
+    .custom-reminder-form .btn:hover {
+      background: var(--primary);
+    }
+    .custom-reminder-list {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .custom-reminder-item {
+      background: #f6fbfc;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(30,58,138,0.08);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.08rem;
+      animation: fadeInUp 0.7s;
+      position: relative;
+    }
+    .custom-reminder-item .delete-btn {
+      background: #ef4444;
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.2rem 0.7rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .custom-reminder-item .delete-btn:hover {
+      background: #b91c1c;
+    }
+    .messages-container {
+      display: flex;
+      gap: 2.5rem;
+      height: 70vh;
+      max-height: 600px;
+      margin-bottom: 2rem;
+    }
+    .messages-sidebar {
+      width: 260px;
+      min-width: 260px;
+      max-width: 260px;
+      background: #fff;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 24px rgba(30,58,138,0.10);
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      animation: fadeInLeft 0.7s;
+      box-sizing: border-box;
+      height: 100%;
+    }
+    .messages-search {
+      margin-bottom: 1.2rem;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .messages-search input {
+      width: 100%;
+      border-radius: 0.7rem;
+      border: 1.5px solid #e0e7ff;
+      padding: 0.7rem 2.5rem 0.7rem 1rem;
+      font-size: 1.08rem;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+    .messages-search input:focus {
+      border: 1.5px solid var(--primary-light);
+      box-shadow: 0 2px 8px rgba(30,58,138,0.10);
+    }
+    .messages-search .bi-search {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #bdbdbd;
+      font-size: 1.2rem;
+    }
+    .conversation-list {
+      flex: 1;
+      overflow-y: auto;
+      border-radius: 1rem;
+      max-height: calc(100% - 80px);
+    }
+    .conversation-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem 0.7rem;
+      border-radius: 0.8rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-bottom: 0.2rem;
+      position: relative;
+    }
+    .conversation-item.selected, .conversation-item:hover {
+      background: #e0e7ff;
+    }
+    .conversation-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #f6fbfc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: var(--primary);
+      font-weight: bold;
+    }
+    .conversation-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .conversation-name {
+      font-weight: 600;
+      font-size: 1.08rem;
+      color: var(--primary);
+      margin-bottom: 0.1rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .conversation-role {
+      font-size: 0.95rem;
+      color: #888;
+      margin-bottom: 0.1rem;
+    }
+    .conversation-preview {
+      font-size: 0.98rem;
+      color: #666;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .conversation-date {
+      font-size: 0.95rem;
+      color: #bdbdbd;
+      margin-left: 0.5rem;
+      white-space: nowrap;
+    }
+    .conversation-unread {
+      background: #ef4444;
+      color: #fff;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      left: 24px;
+      top: 10px;
+      font-weight: bold;
+    }
+    .chat-panel {
+      background: #fff;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 24px rgba(30,58,138,0.10);
+      flex: 1 1 0%;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem 1.5rem 0 1.5rem;
+      min-width: 0;
+      animation: fadeInRight 0.7s;
+      height: 100%;
+    }
+    .chat-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+      border-bottom: 1px solid #e0e7ff;
+      padding-bottom: 1rem;
+      flex-shrink: 0;
+    }
+    .chat-header-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #f6fbfc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--primary);
+      font-weight: bold;
+    }
+    .chat-header-info {
+      flex: 1;
+    }
+    .chat-header-name {
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: var(--primary);
+    }
+    .chat-header-role {
+      font-size: 0.98rem;
+      color: #888;
+    }
+    .chat-header-actions {
+      display: flex;
+      gap: 0.7rem;
+    }
+    .chat-header-actions .icon-btn {
+      background: #e0e7ff;
+      border: none;
+      border-radius: 50%;
+      width: 2.2rem;
+      height: 2.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--primary);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .chat-header-actions .icon-btn:hover {
+      background: var(--primary-light);
+      color: #fff;
+    }
+    .chat-messages-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    .chat-bubble {
+      max-width: 70%;
+      padding: 1rem 1.3rem;
+      border-radius: 1.2rem;
+      font-size: 1.08rem;
+      margin-bottom: 0.2rem;
+      position: relative;
+      animation: fadeInUp 0.5s;
+      word-break: break-word;
+    }
+    .chat-bubble.user {
+      background: #2563eb;
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 0.3rem;
+    }
+    .chat-bubble.doctor {
+      background: #f6fbfc;
+      color: #222;
+      align-self: flex-start;
+      border-bottom-left-radius: 0.3rem;
+      border: 1.5px solid #e0e7ff;
+    }
+    .chat-bubble .chat-time {
+      display: block;
+      font-size: 0.92rem;
+      color: #bdbdbd;
+      margin-top: 0.3rem;
+      text-align: right;
+    }
+    .chat-input-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.2rem 0 1.2rem 0;
+      border-top: 1px solid #e0e7ff;
+      margin-top: 0.5rem;
+      flex-shrink: 0;
+    }
+    .chat-input {
+      flex: 1;
+      border-radius: 0.7rem;
+      border: 1.5px solid #e0e7ff;
+      padding: 0.8rem 1.2rem;
+      font-size: 1.08rem;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+    .chat-input:focus {
+      border: 1.5px solid var(--primary-light);
+      box-shadow: 0 2px 8px rgba(30,58,138,0.10);
+    }
+    .send-btn {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 0.7rem;
+      font-size: 1.3rem;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .send-btn:hover {
+      background: #1e40af;
+    }
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .messages-sidebar {
+      width: 260px;
+      min-width: 260px;
+      max-width: 260px;
+      background: #fff;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 24px rgba(30,58,138,0.10);
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      animation: fadeInLeft 0.7s;
+      box-sizing: border-box;
+    }
+    .emergency-call-btn {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      background: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 4px 16px rgba(220, 53, 69, 0.3);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulse 2s infinite;
+    }
+    .emergency-call-btn:hover {
+      background: #c82333;
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+    }
+    .emergency-call-btn:active {
+      transform: scale(0.95);
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 4px 16px rgba(220, 53, 69, 0.3); }
+      50% { box-shadow: 0 4px 20px rgba(220, 53, 69, 0.6); }
+      100% { box-shadow: 0 4px 16px rgba(220, 53, 69, 0.3); }
+    }
+    .emergency-tooltip {
+      position: fixed;
+      bottom: 110px;
+      left: 30px;
+      background: #dc3545;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      z-index: 1001;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .emergency-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: #dc3545;
+    }
+    /* Header Styles */
+    .header {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding: 1rem 0;
+    }
+    
+    .welcome-text h1 {
+      color: var(--primary-color);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      font-size: 2.2rem;
+    }
+    
+    .welcome-text p {
+      color: #666;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <h3>Shurokha</h3>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="#" class="nav-link active" data-section="overview-section">
+            <i class="bi bi-house-door"></i>
+            Overview
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-section="health-section">
+            <i class="bi bi-heart-pulse"></i>
+            Health Records
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-section="appointments-section">
+            <i class="bi bi-calendar-check"></i>
+            Appointments
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-section="reminders-section">
+            <i class="bi bi-bell"></i>
+            Reminders
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-section="messages-section">
+            <i class="bi bi-chat-dots"></i>
+            Messages
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <button class="emergency-call-btn" id="emergencyCallBtn" aria-label="Emergency Call 999">
+      <i class="bi bi-telephone-fill"></i>
+    </button>
+    <div class="emergency-tooltip" id="emergencyTooltip">Emergency: 999</div>
+    <div class="main-content">
+      <div class="header">
+        <div class="welcome-text" id="welcome-message">
+          <h1>Welcome, Fatema Begum</h1>
+          <p>Here's your pregnancy health overview</p>
+        </div>
+      </div>
+      
+      <div class="profile-section">
+        <button class="profile-btn" id="profileBtn">
+          <i class="bi bi-person-circle"></i>
+        </button>
+        <div class="profile-dropdown" id="profileDropdown">
+          <button class="dropdown-item">
+            <i class="bi bi-person me-2"></i>Profile Details
+          </button>
+          <button class="dropdown-item">
+            <i class="bi bi-pencil me-2"></i>Update Profile
+          </button>
+          <button class="dropdown-item" onclick="logout()">
+            <i class="bi bi-box-arrow-right me-2"></i>Logout
+          </button>
+        </div>
+      </div>
+      <main class="p-4 animate__animated animate__fadeInUp">
+        
+        <section id="overview-section" class="dashboard-section">
+          <h2 class="fw-bold mb-4 text-primary animate__animated animate__fadeInDown">Overview</h2>
+          <div class="overview-grid">
+            <div class="overview-card bp animate__animated animate__fadeInUp">
+              <span class="overview-icon"><i class="bi bi-heart-pulse-fill"></i></span>
+              <div>
+                <div class="card-title">Blood Pressure</div>
+                <div class="card-value">118/75 mmHg</div>
+                <div class="card-status text-success">Normal</div>
+              </div>
+            </div>
+            <div class="overview-card weight animate__animated animate__fadeInUp animate__delay-1s">
+              <span class="overview-icon"><i class="bi bi-graph-up-arrow"></i></span>
+              <div>
+                <div class="card-title">Weight Trend</div>
+                <div class="card-value">65 kg <span class="text-success">(↑ 1.2 kg)</span></div>
+                <div class="card-status">Healthy gain</div>
+              </div>
+            </div>
+            <div class="overview-card hemo animate__animated animate__fadeInUp animate__delay-2s">
+              <span class="overview-icon"><i class="bi bi-droplet-half"></i></span>
+              <div>
+                <div class="card-title">Hemoglobin</div>
+                <div class="card-value">12.5 g/dL</div>
+                <div class="card-status text-success">Healthy</div>
+              </div>
+            </div>
+            <div class="overview-card gest animate__animated animate__fadeInUp animate__delay-3s">
+              <span class="overview-icon"><i class="bi bi-calendar-week"></i></span>
+              <div>
+                <div class="card-title">Gestational Week</div>
+                <div class="card-value">Week 28</div>
+                <div class="card-status">Second Trimester</div>
+              </div>
+            </div>
+            <div class="overview-card risk animate__animated animate__fadeInUp animate__delay-4s">
+              <span class="overview-icon"><i class="bi bi-exclamation-triangle-fill"></i></span>
+              <div>
+                <div class="card-title">High-Risk Status</div>
+                <div class="card-value text-success">No</div>
+                <div class="card-status">Low risk</div>
+              </div>
+            </div>
+          </div>
+          <div class="next-appointment-card animate__animated animate__fadeInUp animate__delay-2s">
+            <div class="fw-bold mb-2 fs-5"><i class="bi bi-calendar-event me-2 text-primary"></i>Next Appointment</div>
+            <div><b>Date:</b> July 20, 2025</div>
+            <div><b>Time:</b> 10:00 AM</div>
+            <div><b>Doctor:</b> Dr. Nazneen</div>
+            <div><b>Location:</b> GreenLife Clinic</div>
+            <button class="btn btn-primary btn-sm mt-2">Reschedule</button>
+          </div>
+          <div class="overview-charts">
+            <div class="overview-chart-card animate__animated animate__fadeInUp animate__delay-3s">
+              <div class="fw-bold mb-2"><i class="bi bi-activity text-success me-2"></i>Weight/BP Trend</div>
+              <canvas id="overviewWeightBPChart" height="180"></canvas>
+            </div>
+            <div class="overview-chart-card animate__animated animate__fadeInUp animate__delay-4s">
+              <div class="fw-bold mb-2"><i class="bi bi-pie-chart-fill text-accent me-2"></i>Checkups Progress</div>
+              <canvas id="overviewCheckupsChart" height="180"></canvas>
+            </div>
+          </div>
+        </section>
+        <!-- Health Records Section -->
+        <section id="health-section" class="dashboard-section d-none">
+          <h2 class="fw-bold mb-4 text-primary animate__animated animate__fadeInDown">Health Records</h2>
+          <div class="medical-history-table animate__animated animate__fadeInUp">
+            <div class="fw-bold mb-2 p-3"><i class="bi bi-journal-medical text-primary me-2"></i>Medical History</div>
+            <table class="table mb-0">
+              <thead>
+                <tr><th>Date</th><th>Doctor</th><th>Test/Checkup</th><th>Result</th><th>Blood Pressure</th><th>Weight (kg)</th><th>Hemoglobin</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>2024-04-01</td><td>Dr. Rahman</td><td>Routine Checkup</td><td>Normal</td><td>122/80</td><td>61.5</td><td>11.2</td></tr>
+                <tr><td>2024-03-15</td><td>Dr. Sultana</td><td>Blood Test</td><td>Normal</td><td>120/78</td><td>61.0</td><td>11.0</td></tr>
+                <tr><td>2024-03-01</td><td>Dr. Rahman</td><td>Ultrasound</td><td>Healthy</td><td>121/79</td><td>60.5</td><td>11.1</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="health-grid">
+            <div class="health-card animate__animated animate__fadeInUp">
+              <span class="health-icon"><i class="bi bi-calendar-week"></i></span>
+              <div>
+                <div class="card-title">Weeks of Pregnancy</div>
+                <div class="card-value">28</div>
+                <div class="card-status">Second Trimester</div>
+              </div>
+            </div>
+            <div class="health-card animate__animated animate__fadeInUp animate__delay-1s">
+              <span class="health-icon"><i class="bi bi-activity"></i></span>
+              <div style="width:180px;">
+                <div class="card-title">Vitals Over Time</div>
+                <canvas id="vitalsChart" height="90"></canvas>
+              </div>
+            </div>
+            <div class="health-card animate__animated animate__fadeInUp animate__delay-2s">
+              <span class="health-icon"><i class="bi bi-graph-up-arrow"></i></span>
+              <div style="width:180px;">
+                <div class="card-title">Health Trends</div>
+                <canvas id="trendsChart" height="90"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="row g-4 mb-4">
+            <div class="col-lg-6">
+              <div class="medication-table animate__animated animate__fadeInUp animate__delay-3s">
+                <div class="fw-bold mb-2 p-3"><i class="bi bi-capsule-pill text-danger me-2"></i>Medication Record</div>
+                <table class="table mb-0">
+                  <thead>
+                    <tr><th>Medication</th><th>Dosage</th><th>Status</th><th>Start</th><th>End</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Iron Tablets</td><td>1/day</td><td><span class="badge bg-success">Ongoing</span></td><td>2024-02-01</td><td>2024-05-01</td></tr>
+                    <tr><td>Folic Acid</td><td>1/day</td><td><span class="badge bg-secondary">Completed</span></td><td>2023-12-01</td><td>2024-03-01</td></tr>
+                    <tr><td>Calcium Supplement</td><td>2/day</td><td><span class="badge bg-success">Ongoing</span></td><td>2024-01-15</td><td>2024-06-01</td></tr>
+                    <tr><td>Vitamin D</td><td>1/day</td><td><span class="badge bg-success">Ongoing</span></td><td>2024-02-15</td><td>2024-05-15</td></tr>
+                    <tr><td>Omega-3</td><td>1/day</td><td><span class="badge bg-warning">Pending</span></td><td>2024-04-01</td><td>2024-07-01</td></tr>
+                    <tr><td>Prenatal Vitamins</td><td>1/day</td><td><span class="badge bg-success">Ongoing</span></td><td>2024-01-01</td><td>2024-08-01</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="lab-table animate__animated animate__fadeInUp animate__delay-4s">
+                <div class="fw-bold mb-2 p-3"><i class="bi bi-file-earmark-medical text-primary me-2"></i>Lab Reports</div>
+                <table class="table mb-0">
+                  <thead>
+                    <tr><th>Type</th><th>Date</th><th>Result</th><th>Action</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Blood Test</td><td>2024-03-15</td><td>Normal</td><td><button class="lab-action-btn">View</button> <button class="lab-action-btn">Download</button></td></tr>
+                    <tr><td>Urine Test</td><td>2024-03-10</td><td>Normal</td><td><button class="lab-action-btn">View</button> <button class="lab-action-btn">Download</button></td></tr>
+                    <tr><td>Ultrasound</td><td>2024-02-20</td><td>Healthy</td><td><button class="lab-action-btn">View</button> <button class="lab-action-btn">Download</button></td></tr>
+                    <tr><td>Glucose Test</td><td>2024-03-01</td><td>Normal</td><td><button class="lab-action-btn">View</button> <button class="lab-action-btn">Download</button></td></tr>
+                    <tr><td>Hemoglobin Test</td><td>2024-02-28</td><td>12.5 g/dL</td><td><button class="lab-action-btn">View</button> <button class="lab-action-btn">Download</button></td></tr>
+                    <tr><td>Thyroid Test</td><td>2024-02-15</td><td>Normal</td><td><button class="lab-action-btn">View</button> <button class="lab-action-btn">Download</button></td></tr>
+                    <tr><td>HIV Test</td><td>2024-02-10</td><td>Negative</td><td><button class="lab-action-btn">View</button> <button class="lab-action-btn">Download</button></td></tr>
+                    <tr><td>Hepatitis B Test</td><td>2024-02-05</td><td>Negative</td><td><button class="lab-action-btn">View</button> <button class="lab-action-btn">Download</button></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="appointments-section" class="dashboard-section d-none appointments-section">
+          <h2 class="fw-bold mb-4 text-primary animate__animated animate__fadeInDown">Appointments</h2>
+          <div class="calendar-card animate__animated animate__fadeInUp">
+            <div class="calendar-header">
+              <button class="calendar-nav-btn" id="calendarPrevBtn"><i class="bi bi-chevron-left"></i></button>
+              <div class="fw-bold fs-5" id="calendarMonthLabel">July 2025</div>
+              <button class="calendar-nav-btn" id="calendarNextBtn"><i class="bi bi-chevron-right"></i></button>
+            </div>
+            <table class="calendar-table" id="calendarTable">
+          </div>
+          <div class="upcoming-appointment-card animate__animated animate__fadeInUp animate__delay-1s">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <div>
+                <div class="fw-bold fs-5 mb-1"><i class="bi bi-calendar-check text-success me-2"></i>Upcoming Appointment</div>
+                <div><b>Date:</b> July 28, 2025 &nbsp; <b>Time:</b> 11:00 AM</div>
+                <div><b>Doctor:</b> Dr. Arefin &nbsp; <b>Facility:</b> Central Clinic</div>
+              </div>
+              <div class="text-end">
+                <button class="btn btn-primary">View Details</button>
+                <button class="btn btn-primary">Reschedule</button>
+                <button class="btn btn-danger">Cancel</button>
+              </div>
+            </div>
+          </div>
+          <div class="past-appointments-table animate__animated animate__fadeInUp animate__delay-2s">
+            <div class="fw-bold mb-2 p-3"><i class="bi bi-clock-history text-accent me-2"></i>Past Appointments</div>
+            <table class="table mb-0">
+              <thead>
+                <tr><th>Date</th><th>Doctor</th><th>Summary</th><th>Prescription</th><th>Follow-up</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>June 10</td><td>Dr. Arefin</td><td>Routine Check</td><td>Folic, Iron</td><td>Yes</td></tr>
+                <tr><td>May 25</td><td>Dr. Rahman</td><td>Ultrasound</td><td>Calcium</td><td>No</td></tr>
+                <tr><td>May 10</td><td>Dr. Sultana</td><td>Blood Test</td><td>Vitamin D</td><td>Yes</td></tr>
+                <tr><td>April 28</td><td>Dr. Nazneen</td><td>Routine Check</td><td>Iron</td><td>Yes</td></tr>
+                <tr><td>April 15</td><td>Dr. Arefin</td><td>Glucose Test</td><td>None</td><td>No</td></tr>
+                <tr><td>March 30</td><td>Dr. Rahman</td><td>Ultrasound</td><td>Folic Acid</td><td>Yes</td></tr>
+                <tr><td>March 15</td><td>Dr. Sultana</td><td>Routine Check</td><td>Iron</td><td>Yes</td></tr>
+                <tr><td>February 28</td><td>Dr. Nazneen</td><td>Blood Test</td><td>Calcium</td><td>No</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="book-appointment-form animate__animated animate__fadeInUp animate__delay-3s">
+            <div class="fw-bold mb-3 fs-5"><i class="bi bi-plus-circle text-primary me-2"></i>Book New Appointment</div>
+            <form>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label>Department:</label>
+                  <select class="form-select">
+                    <option>Obstetrics</option>
+                    <option>Gynecology</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label>Doctor:</label>
+                  <select class="form-select">
+                    <option>Dr. Arefin</option>
+                    <option>Dr. Rahman</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label>Date:</label>
+                  <input type="date" class="form-control">
+                </div>
+                <div class="col-md-6">
+                  <label>Time Slot:</label>
+                  <select class="form-select">
+                    <option>9:00 AM</option>
+                    <option>10:00 AM</option>
+                    <option>11:00 AM</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mt-4">
+                <button class="btn btn-primary" type="submit">Book Appointment</button>
+              </div>
+            </form>
+          </div>
+        </section>
+        <section id="reminders-section" class="dashboard-section d-none">
+          <h2 class="fw-bold mb-4 text-primary animate__animated animate__fadeInDown">Reminders</h2>
+          <div class="reminder-cards animate__animated animate__fadeInUp">
+            <div class="reminder-card animate__animated animate__fadeInUp">
+              <div class="reminder-title"><span class="reminder-icon"><i class="bi bi-capsule-pill"></i></span>Iron Tablet</div>
+              <div class="reminder-time">Time: 9:00 AM</div>
+              <div class="reminder-dosage">Dosage: 1 Tablet</div>
+              <div class="reminder-toggle">
+                <label class="reminder-switch">
+                  <input type="checkbox">
+                  <span class="reminder-slider"></span>
+                </label>
+                <span class="reminder-status">Not Taken</span>
+              </div>
+            </div>
+            <div class="reminder-card supplement animate__animated animate__fadeInUp animate__delay-1s">
+              <div class="reminder-title"><span class="reminder-icon"><i class="bi bi-capsule"></i></span>Calcium Supplement</div>
+              <div class="reminder-time">Time: 7:00 AM</div>
+              <div class="reminder-dosage">Dosage: 1 Capsule</div>
+              <div class="reminder-toggle">
+                <label class="reminder-switch">
+                  <input type="checkbox">
+                  <span class="reminder-slider"></span>
+                </label>
+                <span class="reminder-status">Not Taken</span>
+              </div>
+            </div>
+            <div class="reminder-card calcium taken animate__animated animate__fadeInUp animate__delay-2s">
+              <div class="reminder-title"><span class="reminder-icon"><i class="bi bi-capsule-pill"></i></span>Folic Acid</div>
+              <div class="reminder-time">Time: 10:00 PM</div>
+              <div class="reminder-dosage">Dosage: 1 Tablet</div>
+              <div class="reminder-toggle">
+                <label class="reminder-switch">
+                  <input type="checkbox" checked>
+                  <span class="reminder-slider"></span>
+                </label>
+                <span class="reminder-status">Taken</span>
+              </div>
+            </div>
+            <div class="reminder-card vitamin animate__animated animate__fadeInUp animate__delay-3s">
+              <div class="reminder-title"><span class="reminder-icon"><i class="bi bi-capsule"></i></span>Vitamin D</div>
+              <div class="reminder-time">Time: 8:00 AM</div>
+              <div class="reminder-dosage">Dosage: 1 Capsule</div>
+              <div class="reminder-toggle">
+                <label class="reminder-switch">
+                  <input type="checkbox">
+                  <span class="reminder-slider"></span>
+                </label>
+                <span class="reminder-status">Not Taken</span>
+              </div>
+            </div>
+            <div class="reminder-card omega animate__animated animate__fadeInUp animate__delay-4s">
+              <div class="reminder-title"><span class="reminder-icon"><i class="bi bi-capsule-pill"></i></span>Omega-3</div>
+              <div class="reminder-time">Time: 2:00 PM</div>
+              <div class="reminder-dosage">Dosage: 1 Tablet</div>
+              <div class="reminder-toggle">
+                <label class="reminder-switch">
+                  <input type="checkbox">
+                  <span class="reminder-slider"></span>
+                </label>
+                <span class="reminder-status">Not Taken</span>
+              </div>
+            </div>
+            <div class="reminder-card prenatal animate__animated animate__fadeInUp animate__delay-5s">
+              <div class="reminder-title"><span class="reminder-icon"><i class="bi bi-capsule-pill"></i></span>Prenatal Vitamins</div>
+              <div class="reminder-time">Time: 6:00 PM</div>
+              <div class="reminder-dosage">Dosage: 1 Tablet</div>
+              <div class="reminder-toggle">
+                <label class="reminder-switch">
+                  <input type="checkbox" checked>
+                  <span class="reminder-slider"></span>
+                </label>
+                <span class="reminder-status">Taken</span>
+              </div>
+            </div>
+          </div>
+          <div class="vaccination-timeline animate__animated animate__fadeInUp animate__delay-1s">
+            <div class="timeline-node completed">
+              <div class="timeline-dot"></div>
+              <div class="timeline-label">BCG</div>
+              <div class="timeline-date">Jan 10</div>
+              <div class="timeline-tooltip">Completed on Jan 10</div>
+            </div>
+            <div class="timeline-node completed">
+              <div class="timeline-dot"></div>
+              <div class="timeline-label">Hep B</div>
+              <div class="timeline-date">Mar 10</div>
+              <div class="timeline-tooltip">Completed on Mar 10</div>
+            </div>
+            <div class="timeline-node upcoming">
+              <div class="timeline-dot"></div>
+              <div class="timeline-label">Tetanus</div>
+              <div class="timeline-date">Apr 25</div>
+              <div class="timeline-tooltip">Upcoming: Apr 25</div>
+            </div>
+            <div class="timeline-node missed">
+              <div class="timeline-dot"></div>
+              <div class="timeline-label">Polio</div>
+              <div class="timeline-date">May 15</div>
+              <div class="timeline-tooltip">Missed: May 15</div>
+            </div>
+            <div class="timeline-node upcoming">
+              <div class="timeline-dot"></div>
+              <div class="timeline-label">Influenza</div>
+              <div class="timeline-date">Jun 10</div>
+              <div class="timeline-tooltip">Upcoming: Jun 10</div>
+            </div>
+            <div class="timeline-node upcoming">
+              <div class="timeline-dot"></div>
+              <div class="timeline-label">Pertussis</div>
+              <div class="timeline-date">Jun 25</div>
+              <div class="timeline-tooltip">Upcoming: Jun 25</div>
+            </div>
+            <div class="timeline-node completed">
+              <div class="timeline-dot"></div>
+              <div class="timeline-label">Measles</div>
+              <div class="timeline-date">Feb 20</div>
+              <div class="timeline-tooltip">Completed on Feb 20</div>
+            </div>
+          </div>
+          <div class="notification-settings animate__animated animate__fadeInUp animate__delay-2s">
+            <div class="fw-bold mb-2 fs-5"><i class="bi bi-bell me-2 text-primary"></i>Notification Settings</div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="toggle-slider"></span>
+            </label> SMS Notifications
+            <label class="toggle-switch">
+              <input type="checkbox">
+              <span class="toggle-slider"></span>
+            </label> App Notifications
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="toggle-slider"></span>
+            </label> Email Notifications
+          </div>
+          <div class="custom-reminder-form animate__animated animate__fadeInUp animate__delay-3s">
+            <div class="fw-bold mb-3 fs-5"><i class="bi bi-plus-circle text-primary me-2"></i>Add Custom Reminder</div>
+            <form id="addCustomReminderForm" autocomplete="off">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="customReminderTitle" placeholder="Title" required>
+                <label for="customReminderTitle">Title</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="date" class="form-control" id="customReminderDate" placeholder="Date" required>
+                <label for="customReminderDate">Date</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="time" class="form-control" id="customReminderTime" placeholder="Time" required>
+                <label for="customReminderTime">Time</label>
+              </div>
+              <button class="btn btn-primary" type="submit">Add Reminder</button>
+            </form>
+            <div class="custom-reminder-list" id="customReminderList"></div>
+          </div>
+        </section>
+        <section id="messages-section" class="dashboard-section d-none">
+          <h2 class="fw-bold mb-4 text-primary animate__animated animate__fadeInDown">Messages</h2>
+          <div class="messages-container animate__animated animate__fadeInUp">
+            <div class="messages-sidebar">
+              <div class="messages-search">
+                <input type="text" placeholder="Search conversations...">
+                <i class="bi bi-search"></i>
+              </div>
+              <div class="conversation-list">
+                <div class="conversation-item selected">
+                  <div class="conversation-avatar">DR</div>
+                  <div class="conversation-info">
+                    <div class="conversation-name">Dr. Rahman</div>
+                    <div class="conversation-role">Doctor</div>
+                    <div class="conversation-preview">No messages yet</div>
+                  </div>
+                  <div class="conversation-date"></div>
+                </div>
+                <div class="conversation-item">
+                  <div class="conversation-avatar">DS</div>
+                  <div class="conversation-info">
+                    <div class="conversation-name">Dr. Sultana</div>
+                    <div class="conversation-role">Doctor</div>
+                    <div class="conversation-preview">No messages yet</div>
+                  </div>
+                  <div class="conversation-date"></div>
+                </div>
+                <div class="conversation-item">
+                  <div class="conversation-avatar">DN</div>
+                  <div class="conversation-info">
+                    <div class="conversation-name">Dr. Nazneen</div>
+                    <div class="conversation-role">Doctor</div>
+                    <div class="conversation-preview">No messages yet</div>
+                  </div>
+                  <div class="conversation-date"></div>
+                </div>
+                <div class="conversation-item">
+                  <div class="conversation-avatar">DA</div>
+                  <div class="conversation-info">
+                    <div class="conversation-name">Dr. Arefin</div>
+                    <div class="conversation-role">Doctor</div>
+                    <div class="conversation-preview">No messages yet</div>
+                  </div>
+                  <div class="conversation-date"></div>
+                </div>
+                <div class="conversation-item">
+                  <div class="conversation-avatar">DK</div>
+                  <div class="conversation-info">
+                    <div class="conversation-name">Dr. Karim</div>
+                    <div class="conversation-role">Doctor</div>
+                    <div class="conversation-preview">No messages yet</div>
+                  </div>
+                  <div class="conversation-date"></div>
+                </div>
+                <div class="conversation-item">
+                  <div class="conversation-avatar">DM</div>
+                  <div class="conversation-info">
+                    <div class="conversation-name">Dr. Mahmud</div>
+                    <div class="conversation-role">Doctor</div>
+                    <div class="conversation-preview">No messages yet</div>
+                  </div>
+                  <div class="conversation-date"></div>
+                </div>
+                <div class="conversation-item">
+                  <div class="conversation-avatar">DH</div>
+                  <div class="conversation-info">
+                    <div class="conversation-name">Dr. Hossain</div>
+                    <div class="conversation-role">Doctor</div>
+                    <div class="conversation-preview">No messages yet</div>
+                  </div>
+                  <div class="conversation-date"></div>
+                </div>
+                <div class="conversation-item">
+                  <div class="conversation-avatar">DI</div>
+                  <div class="conversation-info">
+                    <div class="conversation-name">Dr. Islam</div>
+                    <div class="conversation-role">Doctor</div>
+                    <div class="conversation-preview">No messages yet</div>
+                  </div>
+                  <div class="conversation-date"></div>
+                </div>
+              </div>
+            </div>
+            <div class="chat-panel">
+              <div class="chat-header">
+                <div class="chat-header-avatar">DR</div>
+                <div class="chat-header-info">
+                  <div class="chat-header-name">Dr. Rahman</div>
+                  <div class="chat-header-role">Doctor</div>
+                </div>
+                <div class="chat-header-actions">
+                  <button class="icon-btn"><i class="bi bi-telephone"></i></button>
+                  <button class="icon-btn"><i class="bi bi-camera-video"></i></button>
+                  <button class="icon-btn"><i class="bi bi-three-dots"></i></button>
+                </div>
+              </div>
+              <div class="chat-messages-list" id="chatMessagesList">
+              </div>
+              <form class="chat-input-row" id="chatInputForm" autocomplete="off">
+                <input type="text" class="chat-input" id="chatInputBox" placeholder="Type your message...">
+                <button class="icon-btn" type="button" title="Attach file"><i class="bi bi-paperclip"></i></button>
+                <button class="send-btn" type="submit"><i class="bi bi-send"></i></button>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    if (!localStorage.getItem('loggedIn')) {
+      window.location.href = 'login.html';
+    }
+    const navLinks = document.querySelectorAll('.sidebar .nav-link[data-section]');
+    const sections = document.querySelectorAll('.dashboard-section');
+    function showSection(sectionId) {
+      sections.forEach(sec => sec.classList.add('d-none'));
+      document.getElementById(sectionId).classList.remove('d-none');
+      document.getElementById(sectionId).classList.add('animate__fadeInUp');
+      
+      const welcomeMessage = document.getElementById('welcome-message');
+      if (sectionId === 'overview-section') {
+        welcomeMessage.style.display = 'block';
+      } else {
+        welcomeMessage.style.display = 'none';
+      }
+    }
+    navLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        navLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        showSection(this.getAttribute('data-section'));
+      });
+    });
+    showSection('overview-section');
+    new Chart(document.getElementById('overviewWeightBPChart').getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: ['Week 24', 'Week 25', 'Week 26', 'Week 27', 'Week 28'],
+        datasets: [
+          { label: 'Weight (kg)', data: [63.5, 64, 64.5, 65, 65], borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.08)', tension: 0.4, fill: true, pointRadius: 5, pointBackgroundColor: '#10b981' },
+          { label: 'BP (mmHg)', data: [117, 118, 119, 118, 118], borderColor: '#1e3a8a', backgroundColor: 'rgba(30,58,138,0.08)', tension: 0.4, fill: false, pointRadius: 5, pointBackgroundColor: '#1e3a8a' }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: true, labels: { color: '#1e3a8a', font: { weight: 'bold' } } } },
+        scales: { x: { ticks: { color: '#1e3a8a' } }, y: { ticks: { color: '#1e3a8a' } } }
+      }
+    });
+    new Chart(document.getElementById('overviewCheckupsChart').getContext('2d'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Completed', 'Upcoming', 'Missed'],
+        datasets: [{
+          data: [8, 2, 1],
+          backgroundColor: ['#10b981', '#f59e42', '#ef4444'],
+          borderWidth: 2
+        }]
+      },
+      options: {
+        cutout: '70%',
+        plugins: { legend: { display: true, labels: { color: '#1e3a8a', font: { weight: 'bold' } } } }
+      }
+    });
+    new Chart(document.getElementById('vitalsChart').getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+        datasets: [
+          { label: 'Blood Pressure', data: [120, 122, 125, 121, 124], borderColor: '#1e3a8a', backgroundColor: 'rgba(30,58,138,0.08)', tension: 0.4, fill: true, pointRadius: 5, pointBackgroundColor: '#1e3a8a' },
+          { label: 'Weight (kg)', data: [60, 61, 61.5, 62, 62.5], borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.08)', tension: 0.4, fill: true, pointRadius: 5, pointBackgroundColor: '#10b981' },
+          { label: 'Hemoglobin', data: [11, 11.2, 11.5, 11.3, 11.6], borderColor: '#a21caf', backgroundColor: 'rgba(162,28,175,0.08)', tension: 0.4, fill: false, pointRadius: 5, pointBackgroundColor: '#a21caf' },
+          { label: 'Fetal Heart Rate', data: [140, 142, 139, 141, 143], borderColor: '#f59e42', backgroundColor: 'rgba(245,158,66,0.08)', tension: 0.4, fill: false, pointRadius: 5, pointBackgroundColor: '#f59e42' }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: true, labels: { color: '#1e3a8a', font: { weight: 'bold' } } } },
+        scales: { x: { ticks: { color: '#1e3a8a' } }, y: { ticks: { color: '#1e3a8a' } } }
+      }
+    });
+    new Chart(document.getElementById('trendsChart').getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+        datasets: [
+          { label: 'Energy', data: [80, 85, 90, 88, 92], borderColor: '#f59e42', backgroundColor: 'rgba(245,158,66,0.08)', tension: 0.4, fill: true, pointRadius: 5, pointBackgroundColor: '#f59e42' }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: true, labels: { color: '#1e3a8a', font: { weight: 'bold' } } } },
+        scales: { x: { ticks: { color: '#1e3a8a' } }, y: { ticks: { color: '#1e3a8a' } } }
+      }
+    });
+    const profileBtn = document.getElementById('profileBtn');
+    const profileDropdown = document.getElementById('profileDropdown');
+
+    profileBtn.addEventListener('click', function() {
+      profileDropdown.classList.toggle('show');
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
+        profileDropdown.classList.remove('show');
+      }
+    });
+
+    function logout() {
+      localStorage.removeItem('loggedIn');
+      window.location.href = 'login.html';
+    };
+    const chatInputForm = document.getElementById('chatInputForm');
+    const chatInputBox = document.getElementById('chatInputBox');
+    const chatMessagesList = document.getElementById('chatMessagesList');
+    chatInputForm.onsubmit = function(e) {
+      e.preventDefault();
+      const msg = chatInputBox.value.trim();
+      if (msg) {
+        const bubble = document.createElement('div');
+        bubble.className = 'chat-bubble user animate__animated animate__fadeInUp';
+        bubble.innerHTML = msg + '<span class="chat-time">Now</span>';
+        chatMessagesList.appendChild(bubble);
+        chatMessagesList.scrollTop = chatMessagesList.scrollHeight;
+        chatInputBox.value = '';
+        setTimeout(function() {
+          const reply = document.createElement('div');
+          reply.className = 'chat-bubble doctor animate__animated animate__fadeInUp';
+          reply.innerHTML = 'Thank you for your message. I will get back to you soon.<span class="chat-time">Now</span>';
+          chatMessagesList.appendChild(reply);
+          chatMessagesList.scrollTop = chatMessagesList.scrollHeight;
+        }, 1200);
+      }
+    };
+
+    const calendarTable = document.getElementById('calendarTable');
+    const calendarMonthLabel = document.getElementById('calendarMonthLabel');
+    const calendarPrevBtn = document.getElementById('calendarPrevBtn');
+    const calendarNextBtn = document.getElementById('calendarNextBtn');
+    const appointments = [
+      { date: '2025-07-20', name: 'Rina Akter', time: '10:00 AM' },
+      { date: '2025-07-21', name: 'Salma Begum', time: '11:00 AM' },
+      { date: '2025-08-02', name: 'Dr. Arefin', time: '9:00 AM' }
+    ];
+    let calendarDate = new Date(2025, 6, 1); 
+    function renderCalendar() {
+      const year = calendarDate.getFullYear();
+      const month = calendarDate.getMonth();
+      const today = new Date();
+      calendarMonthLabel.textContent = calendarDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const prevMonthDays = new Date(year, month, 0).getDate();
+      let html = '<thead><tr>';
+      ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d => html += `<th>${d}</th>`);
+      html += '</tr></thead><tbody>';
+      let day = 1;
+      let nextMonthDay = 1;
+      for (let row = 0; row < 6; row++) {
+        html += '<tr>';
+        for (let col = 0; col < 7; col++) {
+          let cellClass = '';
+          let cellDay = '';
+          let cellDate = '';
+          let cellContent = '';
+          let tooltip = '';
+          if (row === 0 && col < firstDay) {
+            cellClass = 'other-month';
+            cellDay = prevMonthDays - firstDay + col + 1;
+            cellDate = new Date(year, month - 1, cellDay);
+          } else if (day > daysInMonth) {
+            cellClass = 'other-month';
+            cellDay = nextMonthDay++;
+            cellDate = new Date(year, month + 1, cellDay);
+          } else {
+            cellDay = day;
+            cellDate = new Date(year, month, day);
+            if (
+              cellDate.getFullYear() === today.getFullYear() &&
+              cellDate.getMonth() === today.getMonth() &&
+              cellDate.getDate() === today.getDate()
+            ) {
+              cellClass = 'today';
+            }
+            const appt = appointments.find(a => {
+              const d = new Date(a.date);
+              return d.getFullYear() === year && d.getMonth() === month && d.getDate() === day;
+            });
+            if (appt) {
+              cellClass += ' appointment-day';
+              tooltip = `<div class='calendar-tooltip'><b>${appt.name}</b><br>${appt.time}</div>`;
+            }
+            cellContent = `${day}${tooltip}`;
+            day++;
+          }
+          if (!cellContent) cellContent = cellDay;
+          html += `<td class="${cellClass.trim()}">${cellContent}</td>`;
+        }
+        html += '</tr>';
+        if (day > daysInMonth && nextMonthDay > 7) break;
+      }
+      html += '</tbody>';
+      calendarTable.innerHTML = html;
+      Array.from(calendarTable.querySelectorAll('td.appointment-day')).forEach(td => {
+        td.addEventListener('click', function(e) {
+          e.stopPropagation();
+          calendarTable.querySelectorAll('td.appointment-day').forEach(cell => cell.classList.remove('active'));
+          td.classList.add('active');
+        });
+      });
+      document.addEventListener('click', function() {
+        calendarTable.querySelectorAll('td.appointment-day').forEach(cell => cell.classList.remove('active'));
+      });
+    }
+    calendarPrevBtn.onclick = function() {
+      calendarDate.setMonth(calendarDate.getMonth() - 1);
+      renderCalendar();
+    };
+    calendarNextBtn.onclick = function() {
+      calendarDate.setMonth(calendarDate.getMonth() + 1);
+      renderCalendar();
+    };
+    renderCalendar();
+
+    const addCustomReminderForm = document.getElementById('addCustomReminderForm');
+    const customReminderList = document.getElementById('customReminderList');
+    addCustomReminderForm.onsubmit = function(e) {
+      e.preventDefault();
+      const title = document.getElementById('customReminderTitle').value.trim();
+      const date = document.getElementById('customReminderDate').value;
+      const time = document.getElementById('customReminderTime').value;
+      if (title && date && time) {
+        const item = document.createElement('div');
+        item.className = 'custom-reminder-item animate__animated animate__fadeInUp';
+        item.innerHTML = `<span><b>${title}</b> &mdash; ${date} ${time}</span> <button class='delete-btn'>Delete</button>`;
+        item.querySelector('.delete-btn').onclick = function() { item.remove(); };
+        customReminderList.appendChild(item);
+        addCustomReminderForm.reset();
+      }
+    };
+
+    initializeCharts();
+    
+    const emergencyCallBtn = document.getElementById('emergencyCallBtn');
+    const emergencyTooltip = document.getElementById('emergencyTooltip');
+    
+    emergencyCallBtn.addEventListener('click', function() {
+      if (confirm('Do you want to make an emergency call to 999?')) {
+        window.open('tel:999', '_self');
+      }
+    });
+    
+    emergencyCallBtn.addEventListener('mouseenter', function() {
+      emergencyTooltip.style.opacity = '1';
+    });
+    
+    emergencyCallBtn.addEventListener('mouseleave', function() {
+      emergencyTooltip.style.opacity = '0';
+    });
+  </script>
+</body>
+</html> 

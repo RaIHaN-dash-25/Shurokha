@@ -1,0 +1,21 @@
+:root {
+  --mother-primary: #a855f7;
+  --mother-accent: #f472b6; 
+}
+.dashboard-sidebar .nav-link.active {
+  background: var(--mother-accent);
+  color: #fff !important;
+}
+.dashboard-sidebar .nav-link {
+  color: var(--mother-primary) !important;
+}
+.dashboard-main h2 {
+  color: var(--mother-primary);
+}
+.glass-card {
+  background: rgba(255,255,255,0.85);
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 16px rgba(168,85,247,0.1);
+  border: 1.5px solid #f472b655;
+  backdrop-filter: blur(6px);
+}
