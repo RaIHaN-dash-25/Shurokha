@@ -1,5 +1,17 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'doctor') {
+    header('Location: login.php');
+    exit;
+}
+include 'db.php';
+$doctor_id = $_SESSION['user_id'];
+// Doctor info
+$doctor = $conn->query("SELECT u.full_name, d.specialization FROM users u JOIN doctor_profiles d ON u.id = d.user_id WHERE u.id = $doctor_id")->fetch_assoc();
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,6 +48,7 @@
             min-height: 100vh;
         }
 
+        /* Sidebar Styles */
         .sidebar {
             width: var(--sidebar-width);
             background: linear-gradient(180deg, var(--primary-color) 0%, #34495e 100%);
@@ -45,15 +58,15 @@
             height: 100vh;
             overflow-y: auto;
             z-index: 1000;
-            box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
 
         .sidebar-header {
             padding: 2rem 1.5rem;
             text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .logo-container {
@@ -97,7 +110,7 @@
             display: flex;
             align-items: center;
             padding: 1rem 1.5rem;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             border-radius: 12px;
             transition: all 0.3s ease;
@@ -107,10 +120,10 @@
         }
 
         .nav-link:hover {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             color: white;
             transform: translateX(5px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .nav-link.active {
@@ -133,7 +146,7 @@
             top: 0;
             height: 100%;
             width: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
             transition: width 0.5s ease;
         }
 
@@ -141,6 +154,7 @@
             width: 100%;
         }
 
+        /* Main Content */
         .main-content {
             flex: 1;
             margin-left: var(--sidebar-width);
@@ -164,11 +178,12 @@
             z-index: 0;
         }
 
-        .main-content > * {
+        .main-content>* {
             position: relative;
             z-index: 1;
         }
 
+        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
@@ -239,7 +254,7 @@
             right: 30px !important;
             background: #fff !important;
             border-radius: 12px !important;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
             padding: 1rem 0 !important;
             min-width: 200px !important;
             z-index: 2147483647 !important;
@@ -300,6 +315,7 @@
             margin-top: 0.2rem;
         }
 
+        /* Section Styles */
         .section {
             display: none;
             animation: fadeInUp 0.5s ease;
@@ -314,12 +330,14 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
+        /* Cards */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -331,7 +349,7 @@
             background: white;
             padding: 2rem;
             border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             border-left: 4px solid var(--secondary-color);
             position: relative;
@@ -340,7 +358,7 @@
 
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
 
         .stat-card::before {
@@ -381,11 +399,12 @@
             color: rgba(52, 152, 219, 0.2);
         }
 
+        /* Alerts Section */
         .alerts-section {
             background: white;
             border-radius: 16px;
             padding: 2rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             margin-bottom: 2rem;
         }
 
@@ -407,7 +426,7 @@
 
         .alert-item:hover {
             transform: translateX(5px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .alert-item.urgent {
@@ -453,11 +472,12 @@
             font-size: 0.9rem;
         }
 
+        /* Tables */
         .table-container {
             background: white;
             border-radius: 16px;
             padding: 2rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
 
@@ -583,13 +603,14 @@
             box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
         }
 
+        /* Messages Section - Matching Mother Dashboard */
         .messages-container {
             display: flex;
             height: 600px;
             background: white;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
 
         .contacts-panel {
@@ -793,6 +814,7 @@
             transform: scale(1.1);
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -822,8 +844,21 @@
         }
     </style>
 </head>
+
 <body>
+    <?php
+    // session_start() removed (duplicate)
+    if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'doctor') {
+        header('Location: login.php');
+        exit;
+    }
+    include 'db.php';
+    $doctor_id = $_SESSION['user_id'];
+    // Doctor info
+    $doctor = $conn->query("SELECT u.full_name, d.specialization FROM users u JOIN doctor_profiles d ON u.id = d.user_id WHERE u.id = $doctor_id")->fetch_assoc();
+    ?>
     <div class="dashboard-container">
+        <!-- Sidebar -->
         <nav class="sidebar">
             <div class="sidebar-header">
                 <h3>Shurokha</h3>
@@ -862,11 +897,13 @@
             </ul>
         </nav>
 
+        <!-- Main Content -->
         <div class="main-content">
+            <!-- Header -->
             <div class="header">
                 <div class="welcome-text" id="welcome-message">
-                    <h1>Welcome, Dr. Arefin</h1>
-                    <p>Here's a summary of your clinical dashboard</p>
+                    <h1>Welcome, <?php echo htmlspecialchars($doctor['full_name'] ?? 'Doctor'); ?></h1>
+                    <p>Specialization: <?php echo htmlspecialchars($doctor['specialization'] ?? ''); ?></p>
                 </div>
                 <div class="profile-section">
                     <button class="profile-btn" id="profileBtn" aria-label="Profile">
@@ -875,10 +912,11 @@
                 </div>
             </div>
 
+            <!-- Profile Dropdown (Outside of profile-section) -->
             <div class="profile-dropdown" id="profileDropdown">
                 <div class="profile-info">
-                    <div class="name">Dr. Arefin</div>
-                    <div class="role">Medical Doctor</div>
+                    <div class="name"><?php echo htmlspecialchars($doctor['full_name'] ?? 'Doctor'); ?></div>
+                    <div class="role"><?php echo htmlspecialchars($doctor['specialization'] ?? ''); ?></div>
                 </div>
                 <button class="dropdown-item">
                     <i class="bi bi-person"></i>Profile Details
@@ -892,54 +930,61 @@
                 </button>
             </div>
 
+            <!-- Overview Section -->
             <div class="section active" id="overview">
                 <div class="stats-grid">
+                    <?php
+                    // Total Patients
+                    $totalPatients = $conn->query("SELECT COUNT(DISTINCT mother_user_id) as cnt FROM appointments WHERE doctor_user_id=$doctor_id")->fetch_assoc()['cnt'];
+                    // Today's Appointments
+                    $today = date('Y-m-d');
+                    $todaysAppointments = $conn->query("SELECT COUNT(*) as cnt FROM appointments WHERE doctor_user_id=$doctor_id AND DATE(scheduled_at)='$today'")->fetch_assoc()['cnt'];
+                    // Unread Messages
+                    $unreadMessages = $conn->query("SELECT COUNT(*) as cnt FROM messages WHERE receiver_user_id=$doctor_id AND read_at IS NULL")->fetch_assoc()['cnt'];
+                    // High-Risk Cases (example: mothers with BP > 140/90 in health_records)
+                    $highRisk = $conn->query("SELECT COUNT(DISTINCT mother_user_id) as cnt FROM health_records WHERE blood_pressure_systolic > 140 OR blood_pressure_diastolic > 90")->fetch_assoc()['cnt'];
+                    ?>
                     <div class="stat-card">
                         <i class="bi bi-people"></i>
-                        <h3>28</h3>
+                        <h3><?php echo $totalPatients; ?></h3>
                         <p>Total Patients</p>
                     </div>
                     <div class="stat-card">
                         <i class="bi bi-calendar-check"></i>
-                        <h3>5</h3>
+                        <h3><?php echo $todaysAppointments; ?></h3>
                         <p>Today's Appointments</p>
                     </div>
                     <div class="stat-card">
                         <i class="bi bi-chat-dots"></i>
-                        <h3>3</h3>
+                        <h3><?php echo $unreadMessages; ?></h3>
                         <p>Unread Messages</p>
                     </div>
                     <div class="stat-card">
                         <i class="bi bi-exclamation-triangle"></i>
-                        <h3>2</h3>
+                        <h3><?php echo $highRisk; ?></h3>
                         <p>High-Risk Cases</p>
                     </div>
                 </div>
 
                 <div class="alerts-section">
                     <h3>Alerts</h3>
-                    <div class="alert-item urgent">
-                        <div class="alert-icon">
-                            <i class="bi bi-exclamation-triangle"></i>
-                        </div>
-                        <div class="alert-content">
-                            <h5>Rina Akter (28 wks) - High BP reported</h5>
-                            <p>Urgent attention required</p>
-                        </div>
-                    </div>
-                    <div class="alert-item general">
-                        <div class="alert-icon">
-                            <i class="bi bi-file-earmark-text"></i>
-                        </div>
-                        <div class="alert-content">
-                            <h5>New lab result available for Nazma</h5>
-                            <p>Ready for review</p>
-                        </div>
-                    </div>
+                    <?php
+                    // Example: show mothers with high BP
+                    $alerts = $conn->query("SELECT u.full_name, m.id, h.blood_pressure_systolic, h.blood_pressure_diastolic FROM health_records h JOIN mother_profiles m ON h.mother_user_id = m.user_id JOIN users u ON m.user_id = u.id WHERE (h.blood_pressure_systolic > 140 OR h.blood_pressure_diastolic > 90) ORDER BY h.record_date DESC LIMIT 3");
+                    if ($alerts && $alerts->num_rows > 0) {
+                        while ($a = $alerts->fetch_assoc()) {
+                            echo '<div class="alert-item urgent"><div class="alert-icon"><i class="bi bi-exclamation-triangle"></i></div><div class="alert-content"><h5>' . htmlspecialchars($a['full_name']) . ' - High BP (' . $a['blood_pressure_systolic'] . '/' . $a['blood_pressure_diastolic'] . ')</h5><p>Urgent attention required</p></div></div>';
+                        }
+                    } else {
+                        echo '<div class="alert-item general"><div class="alert-icon"><i class="bi bi-file-earmark-text"></i></div><div class="alert-content"><h5>No urgent alerts</h5><p>All patients stable</p></div></div>';
+                    }
+                    ?>
                 </div>
             </div>
 
+            <!-- Patient List Section -->
             <div class="section" id="patients">
+                <!-- Pregnant Patients -->
                 <div class="table-container">
                     <h3><i class="bi bi-heart-fill text-danger me-2"></i>Pregnant Patients</h3>
                     <div class="table-responsive">
@@ -954,53 +999,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Rina Akter</td>
-                                    <td>01712345678</td>
-                                    <td>28</td>
-                                    <td>July 5</td>
-                                    <td><a href="#" class="btn-action btn-view">View</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Fatima Rahman</td>
-                                    <td>01611223344</td>
-                                    <td>32</td>
-                                    <td>July 3</td>
-                                    <td><a href="#" class="btn-action btn-view">View</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Ayesha Khatun</td>
-                                    <td>01999887766</td>
-                                    <td>24</td>
-                                    <td>July 1</td>
-                                    <td><a href="#" class="btn-action btn-view">View</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Nazma Begum</td>
-                                    <td>01555667788</td>
-                                    <td>36</td>
-                                    <td>June 28</td>
-                                    <td><a href="#" class="btn-action btn-view">View</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Sabina Yasmin</td>
-                                    <td>01888999000</td>
-                                    <td>20</td>
-                                    <td>June 22</td>
-                                    <td><a href="#" class="btn-action btn-view">View</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Nasreen Jahan</td>
-                                    <td>01666777888</td>
-                                    <td>30</td>
-                                    <td>June 18</td>
-                                    <td><a href="#" class="btn-action btn-view">View</a></td>
-                                </tr>
+                                <?php
+                                $pregnant = $conn->query("SELECT u.full_name, m.phone, m.due_date, m.user_id FROM mother_profiles m JOIN users u ON m.user_id = u.id WHERE m.due_date >= CURDATE() AND m.user_id IN (SELECT mother_user_id FROM appointments WHERE doctor_user_id=$doctor_id)");
+                                if ($pregnant && $pregnant->num_rows > 0) {
+                                    while ($row = $pregnant->fetch_assoc()) {
+                                        $weeks = round((strtotime($row['due_date']) - time()) / (7 * 24 * 60 * 60));
+                                        echo '<tr><td>' . htmlspecialchars($row['full_name']) . '</td><td>' . htmlspecialchars($row['phone']) . '</td><td>' . $weeks . '</td><td>' . $row['due_date'] . '</td><td><a href="#" class="btn-action btn-view">View</a></td></tr>';
+                                    }
+                                } else {
+                                    echo '<tr><td colspan="5">No pregnant patients found.</td></tr>';
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
+                <!-- Postpartum Patients -->
                 <div class="table-container">
                     <h3><i class="bi bi-baby text-info me-2"></i>Postpartum Patients</h3>
                     <div class="table-responsive">
@@ -1015,27 +1030,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Salma Begum</td>
-                                    <td>01887654321</td>
-                                    <td>6 weeks</td>
-                                    <td>June 20</td>
-                                    <td><a href="#" class="btn-action btn-view">View</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Rashida Akter</td>
-                                    <td>01777888999</td>
-                                    <td>4 weeks</td>
-                                    <td>June 25</td>
-                                    <td><a href="#" class="btn-action btn-view">View</a></td>
-                                </tr>
+                                <?php
+                                $postpartum = $conn->query("SELECT u.full_name, m.phone, m.due_date, m.user_id FROM mother_profiles m JOIN users u ON m.user_id = u.id WHERE m.due_date < CURDATE() AND m.user_id IN (SELECT mother_user_id FROM appointments WHERE doctor_user_id=$doctor_id)");
+                                if ($postpartum && $postpartum->num_rows > 0) {
+                                    while ($row = $postpartum->fetch_assoc()) {
+                                        $baby_age = round((time() - strtotime($row['due_date'])) / (7 * 24 * 60 * 60));
+                                        echo '<tr><td>' . htmlspecialchars($row['full_name']) . '</td><td>' . htmlspecialchars($row['phone']) . '</td><td>' . $baby_age . ' weeks</td><td>' . $row['due_date'] . '</td><td><a href="#" class="btn-action btn-view">View</a></td></tr>';
+                                    }
+                                } else {
+                                    echo '<tr><td colspan="5">No postpartum patients found.</td></tr>';
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
+            <!-- Appointments Section -->
             <div class="section" id="appointments">
+                <!-- Confirmed Appointments -->
                 <div class="table-container">
                     <h3><i class="bi bi-check-circle-fill text-success me-2"></i>Confirmed Appointments</h3>
                     <div class="table-responsive">
@@ -1050,46 +1064,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>July 20</td>
-                                    <td>10:00 AM</td>
-                                    <td>Rina Akter</td>
-                                    <td>01712345678</td>
-                                    <td><a href="#" class="btn-action btn-details">Details</a></td>
-                                </tr>
-                                <tr>
-                                    <td>July 22</td>
-                                    <td>9:00 AM</td>
-                                    <td>Fatima Rahman</td>
-                                    <td>01611223344</td>
-                                    <td><a href="#" class="btn-action btn-details">Details</a></td>
-                                </tr>
-                                <tr>
-                                    <td>July 23</td>
-                                    <td>2:00 PM</td>
-                                    <td>Ayesha Khatun</td>
-                                    <td>01999887766</td>
-                                    <td><a href="#" class="btn-action btn-details">Details</a></td>
-                                </tr>
-                                <tr>
-                                    <td>July 25</td>
-                                    <td>10:30 AM</td>
-                                    <td>Rashida Akter</td>
-                                    <td>01777888999</td>
-                                    <td><a href="#" class="btn-action btn-details">Details</a></td>
-                                </tr>
-                                <tr>
-                                    <td>July 27</td>
-                                    <td>4:00 PM</td>
-                                    <td>Nasreen Jahan</td>
-                                    <td>01666777888</td>
-                                    <td><a href="#" class="btn-action btn-details">Details</a></td>
-                                </tr>
+                                <?php
+                                $confirmed = $conn->query("SELECT a.*, u.full_name, m.phone FROM appointments a JOIN users u ON a.mother_user_id = u.id JOIN mother_profiles m ON m.user_id = u.id WHERE a.doctor_user_id=$doctor_id AND a.status='scheduled' ORDER BY a.scheduled_at ASC");
+                                if ($confirmed && $confirmed->num_rows > 0) {
+                                    while ($row = $confirmed->fetch_assoc()) {
+                                        $date = date('M d', strtotime($row['scheduled_at']));
+                                        $time = date('h:i A', strtotime($row['scheduled_at']));
+                                        echo '<tr><td>' . $date . '</td><td>' . $time . '</td><td>' . htmlspecialchars($row['full_name']) . '</td><td>' . htmlspecialchars($row['phone']) . '</td><td><a href="#" class="btn-action btn-details">Details</a></td></tr>';
+                                    }
+                                } else {
+                                    echo '<tr><td colspan="5">No confirmed appointments.</td></tr>';
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
+                <!-- Pending Appointments -->
                 <div class="table-container">
                     <h3><i class="bi bi-clock-fill text-warning me-2"></i>Pending Appointments</h3>
                     <div class="table-responsive">
@@ -1104,33 +1096,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>July 21</td>
-                                    <td>11:00 AM</td>
-                                    <td>Salma Begum</td>
-                                    <td>01887654321</td>
-                                    <td><a href="#" class="btn-action btn-confirm">Confirm</a></td>
-                                </tr>
-                                <tr>
-                                    <td>July 24</td>
-                                    <td>3:30 PM</td>
-                                    <td>Nazma Begum</td>
-                                    <td>01555667788</td>
-                                    <td><a href="#" class="btn-action btn-confirm">Confirm</a></td>
-                                </tr>
-                                <tr>
-                                    <td>July 26</td>
-                                    <td>11:30 AM</td>
-                                    <td>Sabina Yasmin</td>
-                                    <td>01888999000</td>
-                                    <td><a href="#" class="btn-action btn-confirm">Confirm</a></td>
-                                </tr>
+                                <?php
+                                $pending = $conn->query("SELECT a.*, u.full_name, m.phone FROM appointments a JOIN users u ON a.mother_user_id = u.id JOIN mother_profiles m ON m.user_id = u.id WHERE a.doctor_user_id=$doctor_id AND a.status='scheduled' AND a.scheduled_at > NOW() ORDER BY a.scheduled_at ASC");
+                                if ($pending && $pending->num_rows > 0) {
+                                    while ($row = $pending->fetch_assoc()) {
+                                        $date = date('M d', strtotime($row['scheduled_at']));
+                                        $time = date('h:i A', strtotime($row['scheduled_at']));
+                                        echo '<tr><td>' . $date . '</td><td>' . $time . '</td><td>' . htmlspecialchars($row['full_name']) . '</td><td>' . htmlspecialchars($row['phone']) . '</td><td><a href="#" class="btn-action btn-confirm">Confirm</a></td></tr>';
+                                    }
+                                } else {
+                                    echo '<tr><td colspan="5">No pending appointments.</td></tr>';
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
+            <!-- Messages Section -->
             <div class="section" id="messages">
                 <div class="messages-container">
                     <div class="contacts-panel">
@@ -1138,62 +1122,17 @@
                             <i class="bi bi-chat-dots me-2"></i>Messages
                         </div>
                         <div class="contact-list">
-                            <div class="contact-item active" data-contact="rina">
-                                <div class="contact-avatar">R</div>
-                                <div class="contact-info">
-                                    <h6>Rina Akter</h6>
-                                    <p>28 weeks pregnant</p>
-                                </div>
-                            </div>
-                            <div class="contact-item" data-contact="salma">
-                                <div class="contact-avatar">S</div>
-                                <div class="contact-info">
-                                    <h6>Salma Begum</h6>
-                                    <p>Postpartum care</p>
-                                </div>
-                            </div>
-                            <div class="contact-item" data-contact="nazma">
-                                <div class="contact-avatar">N</div>
-                                <div class="contact-info">
-                                    <h6>Nazma Khatun</h6>
-                                    <p>Lab results ready</p>
-                                </div>
-                            </div>
-                            <div class="contact-item" data-contact="fatima">
-                                <div class="contact-avatar">F</div>
-                                <div class="contact-info">
-                                    <h6>Fatima Rahman</h6>
-                                    <p>32 weeks pregnant</p>
-                                </div>
-                            </div>
-                            <div class="contact-item" data-contact="ayesha">
-                                <div class="contact-avatar">A</div>
-                                <div class="contact-info">
-                                    <h6>Ayesha Khatun</h6>
-                                    <p>24 weeks pregnant</p>
-                                </div>
-                            </div>
-                            <div class="contact-item" data-contact="rashida">
-                                <div class="contact-avatar">R</div>
-                                <div class="contact-info">
-                                    <h6>Rashida Akter</h6>
-                                    <p>Postpartum care</p>
-                                </div>
-                            </div>
-                            <div class="contact-item" data-contact="sabina">
-                                <div class="contact-avatar">S</div>
-                                <div class="contact-info">
-                                    <h6>Sabina Yasmin</h6>
-                                    <p>20 weeks pregnant</p>
-                                </div>
-                            </div>
-                            <div class="contact-item" data-contact="nasreen">
-                                <div class="contact-avatar">N</div>
-                                <div class="contact-info">
-                                    <h6>Nasreen Jahan</h6>
-                                    <p>30 weeks pregnant</p>
-                                </div>
-                            </div>
+                            <?php
+                            $contacts = $conn->query("SELECT DISTINCT u.id, u.full_name, m.phone FROM users u JOIN mother_profiles m ON u.id = m.user_id JOIN appointments a ON a.mother_user_id = u.id WHERE a.doctor_user_id = $doctor_id");
+                            if ($contacts && $contacts->num_rows > 0) {
+                                while ($row = $contacts->fetch_assoc()) {
+                                    $initial = strtoupper(substr($row['full_name'], 0, 1));
+                                    echo '<div class="contact-item" data-contact="' . $row['id'] . '"><div class="contact-avatar">' . $initial . '</div><div class="contact-info"><h6>' . htmlspecialchars($row['full_name']) . '</h6><p>' . htmlspecialchars($row['phone']) . '</p></div></div>';
+                                }
+                            } else {
+                                echo '<div class="contact-item"><div class="contact-avatar">?</div><div class="contact-info"><h6>No contacts</h6><p>-</p></div></div>';
+                            }
+                            ?>
                         </div>
                     </div>
                     <div class="chat-panel">
@@ -1230,6 +1169,7 @@
                 </div>
             </div>
 
+            <!-- Medical Records Section -->
             <div class="section" id="records">
                 <div class="table-container">
                     <h3>Medical Records</h3>
@@ -1245,62 +1185,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Rina Akter</td>
-                                    <td>July 5</td>
-                                    <td>BP: 118/75, Hb: 12.5</td>
-                                    <td>Healthy</td>
-                                    <td><a href="#" class="btn-action btn-update">Update</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Salma Begum</td>
-                                    <td>June 20</td>
-                                    <td>BP: 124/82, Hb: 11.2</td>
-                                    <td>Postpartum Check</td>
-                                    <td><a href="#" class="btn-action btn-update">Update</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Fatima Rahman</td>
-                                    <td>July 3</td>
-                                    <td>BP: 120/78, Hb: 11.8</td>
-                                    <td>Normal</td>
-                                    <td><a href="#" class="btn-action btn-update">Update</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Ayesha Khatun</td>
-                                    <td>July 1</td>
-                                    <td>BP: 116/72, Hb: 12.1</td>
-                                    <td>Good</td>
-                                    <td><a href="#" class="btn-action btn-update">Update</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Nazma Begum</td>
-                                    <td>June 28</td>
-                                    <td>BP: 122/80, Hb: 11.5</td>
-                                    <td>Stable</td>
-                                    <td><a href="#" class="btn-action btn-update">Update</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Rashida Akter</td>
-                                    <td>June 25</td>
-                                    <td>BP: 118/76, Hb: 12.3</td>
-                                    <td>Postpartum</td>
-                                    <td><a href="#" class="btn-action btn-update">Update</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Sabina Yasmin</td>
-                                    <td>June 22</td>
-                                    <td>BP: 115/70, Hb: 11.9</td>
-                                    <td>Healthy</td>
-                                    <td><a href="#" class="btn-action btn-update">Update</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Nasreen Jahan</td>
-                                    <td>June 18</td>
-                                    <td>BP: 121/79, Hb: 12.0</td>
-                                    <td>Normal</td>
-                                    <td><a href="#" class="btn-action btn-update">Update</a></td>
-                                </tr>
+                                <?php
+                                $records = $conn->query("SELECT u.full_name, h.record_date, h.blood_pressure_systolic, h.blood_pressure_diastolic, h.notes FROM health_records h JOIN users u ON h.mother_user_id = u.id WHERE h.mother_user_id IN (SELECT mother_user_id FROM appointments WHERE doctor_user_id=$doctor_id) ORDER BY h.record_date DESC LIMIT 20");
+                                if ($records && $records->num_rows > 0) {
+                                    while ($row = $records->fetch_assoc()) {
+                                        $vitals = 'BP: ' . $row['blood_pressure_systolic'] . '/' . $row['blood_pressure_diastolic'];
+                                        echo '<tr><td>' . htmlspecialchars($row['full_name']) . '</td><td>' . $row['record_date'] . '</td><td>' . $vitals . '</td><td>' . htmlspecialchars($row['notes']) . '</td><td><a href="#" class="btn-action btn-update">Update</a></td></tr>';
+                                    }
+                                } else {
+                                    echo '<tr><td colspan="5">No medical records found.</td></tr>';
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -1312,20 +1207,26 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Navigation functionality
             const navLinks = document.querySelectorAll('.nav-link');
             const sections = document.querySelectorAll('.section');
 
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
+
+                    // Remove active class from all links and sections
                     navLinks.forEach(l => l.classList.remove('active'));
                     sections.forEach(s => s.classList.remove('active'));
 
+                    // Add active class to clicked link
                     this.classList.add('active');
 
+                    // Show corresponding section
                     const sectionId = this.getAttribute('data-section');
                     document.getElementById(sectionId).classList.add('active');
 
+                    // Show/hide welcome message based on section
                     const welcomeMessage = document.getElementById('welcome-message');
                     if (sectionId === 'overview') {
                         welcomeMessage.style.display = 'block';
@@ -1335,6 +1236,7 @@
                 });
             });
 
+            // Profile dropdown functionality
             const profileBtn = document.getElementById('profileBtn');
             const profileDropdown = document.getElementById('profileDropdown');
 
@@ -1353,15 +1255,18 @@
                 console.error('Profile elements not found');
             }
 
+            // Contact selection in messages
             const contactItems = document.querySelectorAll('.contact-item');
             contactItems.forEach(item => {
                 item.addEventListener('click', function() {
                     contactItems.forEach(c => c.classList.remove('active'));
                     this.classList.add('active');
 
+                    // Update chat header
                     const contactName = this.querySelector('h6').textContent;
                     document.querySelector('.chat-header h5').textContent = contactName;
 
+                    // Clear empty chat message
                     const emptyChat = document.querySelector('.empty-chat');
                     if (emptyChat) {
                         emptyChat.innerHTML = `
@@ -1373,12 +1278,14 @@
                 });
             });
 
+            // Send message functionality
             const sendBtn = document.querySelector('.btn-send');
             const messageInput = document.querySelector('.form-control');
 
             sendBtn.addEventListener('click', function() {
                 const message = messageInput.value.trim();
                 if (message) {
+                    // Here you would typically send the message
                     console.log('Sending message:', message);
                     messageInput.value = '';
                 }
@@ -1394,8 +1301,9 @@
         function logout() {
             localStorage.removeItem('isLoggedIn');
             localStorage.removeItem('userRole');
-            window.location.href = 'login.html';
+            window.location.href = 'login.php';
         }
     </script>
 </body>
-</html> 
+
+</html>

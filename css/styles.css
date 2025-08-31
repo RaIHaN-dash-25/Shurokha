@@ -1,5 +1,5 @@
 :root {
-  font-size: 18px;
+  font-size: 15px;
   --primary: #6366f1; /* Modern indigo */
   --primary-light: #818cf8; /* Lighter indigo */
   --secondary: #ec4899; /* Pink */
@@ -313,8 +313,8 @@ h4, h5, h6 {
 }
 
 .hero-img {
-  max-width: 500px;
-  width: 150%;
+  max-width: 400px;
+  width: 100%;
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   animation: fadeInRight 1.2s;

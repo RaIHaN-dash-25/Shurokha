@@ -1,0 +1,818 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "full_name": "John Doe",
+      "email": "john.doe@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_1",
+      "role": "admin",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    },
+    {
+      "id": "2",
+      "full_name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_2",
+      "role": "doctor",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    },
+    {
+      "id": "3",
+      "full_name": "Mary Johnson",
+      "email": "mary.johnson@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_3",
+      "role": "mother",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    },
+    {
+      "id": "4",
+      "full_name": "James Brown",
+      "email": "james.brown@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_4",
+      "role": "doctor",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    },
+    {
+      "id": "5",
+      "full_name": "Patricia Taylor",
+      "email": "patricia.taylor@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_5",
+      "role": "mother",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    },
+    {
+      "id": "6",
+      "full_name": "Michael White",
+      "email": "michael.white@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_6",
+      "role": "admin",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    },
+    {
+      "id": "7",
+      "full_name": "Linda Harris",
+      "email": "linda.harris@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_7",
+      "role": "mother",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    },
+    {
+      "id": "8",
+      "full_name": "David Clark",
+      "email": "david.clark@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_8",
+      "role": "doctor",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    },
+    {
+      "id": "9",
+      "full_name": "Elizabeth Lewis",
+      "email": "elizabeth.lewis@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_9",
+      "role": "mother",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    },
+    {
+      "id": "10",
+      "full_name": "William Walker",
+      "email": "william.walker@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_10",
+      "role": "doctor",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    },
+    {
+      "id": "11",
+      "full_name": "Barbara Hall",
+      "email": "barbara.hall@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_11",
+      "role": "mother",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    },
+    {
+      "id": "12",
+      "full_name": "Richard Allen",
+      "email": "richard.allen@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_12",
+      "role": "doctor",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    },
+    {
+      "id": "13",
+      "full_name": "Susan King",
+      "email": "susan.king@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_13",
+      "role": "mother",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    },
+    {
+      "id": "14",
+      "full_name": "Joseph Scott",
+      "email": "joseph.scott@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_14",
+      "role": "doctor",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    },
+    {
+      "id": "15",
+      "full_name": "Jessica Young",
+      "email": "jessica.young@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_15",
+      "role": "mother",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    },
+    {
+      "id": "16",
+      "full_name": "Charles Adams",
+      "email": "charles.adams@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_16",
+      "role": "doctor",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    },
+    {
+      "id": "17",
+      "full_name": "Nancy Baker",
+      "email": "nancy.baker@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_17",
+      "role": "mother",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    },
+    {
+      "id": "18",
+      "full_name": "Thomas Gonzalez",
+      "email": "thomas.gonzalez@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_18",
+      "role": "doctor",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    },
+    {
+      "id": "19",
+      "full_name": "Dorothy Nelson",
+      "email": "dorothy.nelson@example.com",
+      "phone": "",
+      "password_hash": "hashed_password_19",
+      "role": "mother",
+      "status": "Active",
+      "is_active": "1",
+      "created_at": "2025-08-22 18:37:05",
+      "updated_at": "2025-08-22 18:37:05"
+    }
+  ],
+  "mother_profiles": [
+    {
+      "id": "1",
+      "user_id": "3",
+      "date_of_birth": "1990-05-15",
+      "address": "123 Maple St, Cityville",
+      "phone": "+1234567890",
+      "due_date": "2025-09-30",
+      "blood_type": "O+",
+      "emergency_contact": "John Doe"
+    },
+    {
+      "id": "2",
+      "user_id": "5",
+      "date_of_birth": "1985-09-20",
+      "address": "456 Oak Ave, Townville",
+      "phone": "+1234567891",
+      "due_date": "2025-11-15",
+      "blood_type": "A-",
+      "emergency_contact": "James Brown"
+    },
+    {
+      "id": "3",
+      "user_id": "7",
+      "date_of_birth": "1992-12-10",
+      "address": "789 Pine Rd, Villageburg",
+      "phone": "+1234567892",
+      "due_date": "2026-01-10",
+      "blood_type": "B+",
+      "emergency_contact": "David Clark"
+    },
+    {
+      "id": "4",
+      "user_id": "9",
+      "date_of_birth": "1988-07-03",
+      "address": "101 Birch Ln, Suburbia",
+      "phone": "+1234567893",
+      "due_date": "2025-10-20",
+      "blood_type": "AB-",
+      "emergency_contact": "Elizabeth Lewis"
+    },
+    {
+      "id": "5",
+      "user_id": "11",
+      "date_of_birth": "1993-01-22",
+      "address": "202 Cedar St, Greenfield",
+      "phone": "+1234567894",
+      "due_date": "2025-12-25",
+      "blood_type": "O-",
+      "emergency_contact": "Richard Allen"
+    },
+    {
+      "id": "6",
+      "user_id": "13",
+      "date_of_birth": "1991-10-15",
+      "address": "303 Elm Dr, Hilltop",
+      "phone": "+1234567895",
+      "due_date": "2026-02-05",
+      "blood_type": "A+",
+      "emergency_contact": "Susan King"
+    },
+    {
+      "id": "7",
+      "user_id": "15",
+      "date_of_birth": "1987-08-30",
+      "address": "404 Willow Blvd, Riverside",
+      "phone": "+1234567896",
+      "due_date": "2025-08-15",
+      "blood_type": "B-",
+      "emergency_contact": "Jessica Young"
+    },
+    {
+      "id": "8",
+      "user_id": "17",
+      "date_of_birth": "1994-11-05",
+      "address": "505 Redwood St, Parkview",
+      "phone": "+1234567897",
+      "due_date": "2026-03-01",
+      "blood_type": "O+",
+      "emergency_contact": "Charles Adams"
+    },
+    {
+      "id": "9",
+      "user_id": "19",
+      "date_of_birth": "1990-03-12",
+      "address": "606 Maple Dr, Citytown",
+      "phone": "+1234567898",
+      "due_date": "2025-07-20",
+      "blood_type": "AB+",
+      "emergency_contact": "Nancy Baker"
+    }
+  ],
+  "doctor_profiles": [
+    {
+      "id": "41",
+      "user_id": "2",
+      "specialization": "Gynecology",
+      "license_number": "L12345",
+      "phone": "+1234567890"
+    },
+    {
+      "id": "42",
+      "user_id": "4",
+      "specialization": "Pediatrics",
+      "license_number": "L12346",
+      "phone": "+1234567891"
+    },
+    {
+      "id": "43",
+      "user_id": "8",
+      "specialization": "Obstetrics",
+      "license_number": "L12347",
+      "phone": "+1234567892"
+    },
+    {
+      "id": "44",
+      "user_id": "10",
+      "specialization": "Cardiology",
+      "license_number": "L12348",
+      "phone": "+1234567893"
+    },
+    {
+      "id": "45",
+      "user_id": "12",
+      "specialization": "Neurology",
+      "license_number": "L12349",
+      "phone": "+1234567894"
+    },
+    {
+      "id": "46",
+      "user_id": "14",
+      "specialization": "Orthopedics",
+      "license_number": "L12350",
+      "phone": "+1234567895"
+    },
+    {
+      "id": "47",
+      "user_id": "16",
+      "specialization": "Dermatology",
+      "license_number": "L12351",
+      "phone": "+1234567896"
+    },
+    {
+      "id": "48",
+      "user_id": "18",
+      "specialization": "Psychiatry",
+      "license_number": "L12352",
+      "phone": "+1234567897"
+    }
+  ],
+  "health_records": [
+    {
+      "id": "1",
+      "mother_user_id": "3",
+      "record_date": "2025-08-01",
+      "weight_kg": "65.50",
+      "blood_pressure_systolic": "120",
+      "blood_pressure_diastolic": "80",
+      "notes": "Healthy pregnancy",
+      "created_at": "2025-08-22 18:48:31"
+    },
+    {
+      "id": "2",
+      "mother_user_id": "5",
+      "record_date": "2025-08-10",
+      "weight_kg": "70.20",
+      "blood_pressure_systolic": "130",
+      "blood_pressure_diastolic": "85",
+      "notes": "Normal blood pressure",
+      "created_at": "2025-08-22 18:48:31"
+    },
+    {
+      "id": "3",
+      "mother_user_id": "7",
+      "record_date": "2025-08-20",
+      "weight_kg": "68.30",
+      "blood_pressure_systolic": "125",
+      "blood_pressure_diastolic": "82",
+      "notes": "Routine checkup",
+      "created_at": "2025-08-22 18:48:31"
+    },
+    {
+      "id": "4",
+      "mother_user_id": "9",
+      "record_date": "2025-08-25",
+      "weight_kg": "66.70",
+      "blood_pressure_systolic": "122",
+      "blood_pressure_diastolic": "78",
+      "notes": "Pregnancy progressing well",
+      "created_at": "2025-08-22 18:48:31"
+    },
+    {
+      "id": "5",
+      "mother_user_id": "11",
+      "record_date": "2025-08-15",
+      "weight_kg": "72.10",
+      "blood_pressure_systolic": "128",
+      "blood_pressure_diastolic": "84",
+      "notes": "No concerns",
+      "created_at": "2025-08-22 18:48:31"
+    },
+    {
+      "id": "6",
+      "mother_user_id": "13",
+      "record_date": "2025-08-30",
+      "weight_kg": "69.50",
+      "blood_pressure_systolic": "127",
+      "blood_pressure_diastolic": "80",
+      "notes": "No issues found",
+      "created_at": "2025-08-22 18:48:31"
+    },
+    {
+      "id": "7",
+      "mother_user_id": "15",
+      "record_date": "2025-08-10",
+      "weight_kg": "74.00",
+      "blood_pressure_systolic": "135",
+      "blood_pressure_diastolic": "90",
+      "notes": "Blood pressure slightly high",
+      "created_at": "2025-08-22 18:48:31"
+    },
+    {
+      "id": "8",
+      "mother_user_id": "17",
+      "record_date": "2025-08-05",
+      "weight_kg": "71.20",
+      "blood_pressure_systolic": "126",
+      "blood_pressure_diastolic": "83",
+      "notes": "Pregnancy progressing well",
+      "created_at": "2025-08-22 18:48:31"
+    },
+    {
+      "id": "9",
+      "mother_user_id": "19",
+      "record_date": "2025-08-20",
+      "weight_kg": "67.80",
+      "blood_pressure_systolic": "124",
+      "blood_pressure_diastolic": "79",
+      "notes": "Everything normal",
+      "created_at": "2025-08-22 18:48:31"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "1",
+      "mother_user_id": "3",
+      "doctor_user_id": "2",
+      "doctor_schedule_id": null,
+      "scheduled_at": "2025-09-01 10:00:00",
+      "status": "scheduled",
+      "notes": "Routine checkup",
+      "created_at": "2025-08-22 18:46:25",
+      "updated_at": "2025-08-22 18:46:25"
+    },
+    {
+      "id": "2",
+      "mother_user_id": "5",
+      "doctor_user_id": "4",
+      "doctor_schedule_id": null,
+      "scheduled_at": "2025-11-05 14:00:00",
+      "status": "scheduled",
+      "notes": "Ultrasound appointment",
+      "created_at": "2025-08-22 18:46:25",
+      "updated_at": "2025-08-22 18:46:25"
+    },
+    {
+      "id": "3",
+      "mother_user_id": "7",
+      "doctor_user_id": "6",
+      "doctor_schedule_id": null,
+      "scheduled_at": "2025-10-25 09:30:00",
+      "status": "scheduled",
+      "notes": "Monthly checkup",
+      "created_at": "2025-08-22 18:46:25",
+      "updated_at": "2025-08-22 18:46:25"
+    },
+    {
+      "id": "4",
+      "mother_user_id": "9",
+      "doctor_user_id": "8",
+      "doctor_schedule_id": null,
+      "scheduled_at": "2025-10-17 11:00:00",
+      "status": "scheduled",
+      "notes": "Pregnancy consultation",
+      "created_at": "2025-08-22 18:46:25",
+      "updated_at": "2025-08-23 16:10:44"
+    },
+    {
+      "id": "5",
+      "mother_user_id": "11",
+      "doctor_user_id": "10",
+      "doctor_schedule_id": null,
+      "scheduled_at": "2025-09-30 13:00:00",
+      "status": "scheduled",
+      "notes": "Blood pressure check",
+      "created_at": "2025-08-22 18:46:25",
+      "updated_at": "2025-08-22 18:46:25"
+    },
+    {
+      "id": "6",
+      "mother_user_id": "13",
+      "doctor_user_id": "12",
+      "doctor_schedule_id": null,
+      "scheduled_at": "2025-11-15 16:00:00",
+      "status": "scheduled",
+      "notes": "Routine checkup",
+      "created_at": "2025-08-22 18:46:25",
+      "updated_at": "2025-08-22 18:46:25"
+    },
+    {
+      "id": "7",
+      "mother_user_id": "15",
+      "doctor_user_id": "14",
+      "doctor_schedule_id": null,
+      "scheduled_at": "2025-12-05 08:30:00",
+      "status": "scheduled",
+      "notes": "Monthly checkup",
+      "created_at": "2025-08-22 18:46:25",
+      "updated_at": "2025-08-22 18:46:25"
+    },
+    {
+      "id": "8",
+      "mother_user_id": "17",
+      "doctor_user_id": "16",
+      "doctor_schedule_id": null,
+      "scheduled_at": "2025-12-10 10:15:00",
+      "status": "scheduled",
+      "notes": "Ultrasound appointment",
+      "created_at": "2025-08-22 18:46:25",
+      "updated_at": "2025-08-22 18:46:25"
+    },
+    {
+      "id": "9",
+      "mother_user_id": "19",
+      "doctor_user_id": "18",
+      "doctor_schedule_id": null,
+      "scheduled_at": "2025-11-20 14:30:00",
+      "status": "scheduled",
+      "notes": "Blood work",
+      "created_at": "2025-08-22 18:46:25",
+      "updated_at": "2025-08-22 18:46:25"
+    },
+    {
+      "id": "10",
+      "mother_user_id": "4",
+      "doctor_user_id": "2",
+      "doctor_schedule_id": null,
+      "scheduled_at": "2025-09-20 12:00:00",
+      "status": "scheduled",
+      "notes": "Routine checkup",
+      "created_at": "2025-08-22 18:46:25",
+      "updated_at": "2025-08-22 18:46:25"
+    },
+    {
+      "id": "11",
+      "mother_user_id": "9",
+      "doctor_user_id": "2",
+      "doctor_schedule_id": null,
+      "scheduled_at": "2025-08-25 12:00:00",
+      "status": "scheduled",
+      "notes": "",
+      "created_at": "2025-08-23 19:03:52",
+      "updated_at": "2025-08-23 19:03:52"
+    },
+    {
+      "id": "12",
+      "mother_user_id": "9",
+      "doctor_user_id": "4",
+      "doctor_schedule_id": null,
+      "scheduled_at": "2025-08-27 09:00:00",
+      "status": "scheduled",
+      "notes": "",
+      "created_at": "2025-08-23 19:07:27",
+      "updated_at": "2025-08-23 19:07:27"
+    },
+    {
+      "id": "13",
+      "mother_user_id": "9",
+      "doctor_user_id": "4",
+      "doctor_schedule_id": null,
+      "scheduled_at": "2025-08-27 09:00:00",
+      "status": "scheduled",
+      "notes": "",
+      "created_at": "2025-08-23 19:07:45",
+      "updated_at": "2025-08-23 19:07:45"
+    }
+  ],
+  "custom_reminders": [
+    {
+      "id": "1",
+      "mother_user_id": "9",
+      "title": "Doctor Appointment Prep",
+      "remind_at": "2025-09-14 20:00:00",
+      "status": "pending",
+      "notes": "Prepare documents for appointment",
+      "created_at": "2025-08-23 16:13:37",
+      "updated_at": "2025-08-23 16:13:37"
+    },
+    {
+      "id": "2",
+      "mother_user_id": "9",
+      "title": "Drink Extra Water",
+      "remind_at": "2025-09-01 15:00:00",
+      "status": "done",
+      "notes": "Stay hydrated during afternoon",
+      "created_at": "2025-08-23 16:13:37",
+      "updated_at": "2025-08-23 16:46:13"
+    },
+    {
+      "id": "3",
+      "mother_user_id": "9",
+      "title": "Have Medicine",
+      "remind_at": "2025-08-23 17:46:00",
+      "status": "done",
+      "notes": null,
+      "created_at": "2025-08-23 16:46:48",
+      "updated_at": "2025-08-23 16:46:57"
+    }
+  ],
+  "doctor_schedules": [
+    {
+      "id": "1",
+      "doctor_user_id": "2",
+      "day_of_week": "Monday",
+      "slot_number": "1",
+      "start_time": "09:00:00",
+      "end_time": "10:00:00",
+      "is_available": "1",
+      "created_at": "2025-08-23 22:23:18",
+      "updated_at": "2025-08-23 22:23:18"
+    },
+    {
+      "id": "2",
+      "doctor_user_id": "2",
+      "day_of_week": "Monday",
+      "slot_number": "2",
+      "start_time": "11:00:00",
+      "end_time": "12:00:00",
+      "is_available": "1",
+      "created_at": "2025-08-23 22:23:18",
+      "updated_at": "2025-08-23 22:23:18"
+    },
+    {
+      "id": "3",
+      "doctor_user_id": "2",
+      "day_of_week": "Monday",
+      "slot_number": "3",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": "1",
+      "created_at": "2025-08-23 22:23:18",
+      "updated_at": "2025-08-23 22:23:18"
+    },
+    {
+      "id": "4",
+      "doctor_user_id": "2",
+      "day_of_week": "Tuesday",
+      "slot_number": "1",
+      "start_time": "09:00:00",
+      "end_time": "10:00:00",
+      "is_available": "1",
+      "created_at": "2025-08-23 22:23:18",
+      "updated_at": "2025-08-23 22:23:18"
+    },
+    {
+      "id": "5",
+      "doctor_user_id": "2",
+      "day_of_week": "Tuesday",
+      "slot_number": "2",
+      "start_time": "11:00:00",
+      "end_time": "12:00:00",
+      "is_available": "1",
+      "created_at": "2025-08-23 22:23:18",
+      "updated_at": "2025-08-23 22:23:18"
+    },
+    {
+      "id": "6",
+      "doctor_user_id": "2",
+      "day_of_week": "Tuesday",
+      "slot_number": "3",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": "1",
+      "created_at": "2025-08-23 22:23:18",
+      "updated_at": "2025-08-23 22:23:18"
+    },
+    {
+      "id": "7",
+      "doctor_user_id": "2",
+      "day_of_week": "Wednesday",
+      "slot_number": "1",
+      "start_time": "09:00:00",
+      "end_time": "10:00:00",
+      "is_available": "1",
+      "created_at": "2025-08-23 22:23:18",
+      "updated_at": "2025-08-23 22:23:18"
+    },
+    {
+      "id": "8",
+      "doctor_user_id": "2",
+      "day_of_week": "Wednesday",
+      "slot_number": "2",
+      "start_time": "11:00:00",
+      "end_time": "12:00:00",
+      "is_available": "1",
+      "created_at": "2025-08-23 22:23:18",
+      "updated_at": "2025-08-23 22:23:18"
+    },
+    {
+      "id": "9",
+      "doctor_user_id": "2",
+      "day_of_week": "Wednesday",
+      "slot_number": "3",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": "1",
+      "created_at": "2025-08-23 22:23:18",
+      "updated_at": "2025-08-23 22:23:18"
+    },
+    {
+      "id": "10",
+      "doctor_user_id": "2",
+      "day_of_week": "Thursday",
+      "slot_number": "1",
+      "start_time": "09:00:00",
+      "end_time": "10:00:00",
+      "is_available": "1",
+      "created_at": "2025-08-23 22:23:18",
+      "updated_at": "2025-08-23 22:23:18"
+    },
+    {
+      "id": "11",
+      "doctor_user_id": "2",
+      "day_of_week": "Thursday",
+      "slot_number": "2",
+      "start_time": "11:00:00",
+      "end_time": "12:00:00",
+      "is_available": "1",
+      "created_at": "2025-08-23 22:23:18",
+      "updated_at": "2025-08-23 22:23:18"
+    },
+    {
+      "id": "12",
+      "doctor_user_id": "2",
+      "day_of_week": "Thursday",
+      "slot_number": "3",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": "1",
+      "created_at": "2025-08-23 22:23:18",
+      "updated_at": "2025-08-23 22:23:18"
+    },
+    {
+      "id": "13",
+      "doctor_user_id": "2",
+      "day_of_week": "Friday",
+      "slot_number": "1",
+      "start_time": "09:00:00",
+      "end_time": "10:00:00",
+      "is_available": "1",
+      "created_at": "2025-08-23 22:23:18",
+      "updated_at": "2025-08-23 22:23:18"
+    },
+    {
+      "id": "14",
+      "doctor_user_id": "2",
+      "day_of_week": "Friday",
+      "slot_number": "2",
+      "start_time": "11:00:00",
+      "end_time": "12:00:00",
+      "is_available": "1",
+      "created_at": "2025-08-23 22:23:18",
+      "updated_at": "2025-08-23 22:23:18"
+    },
+    {
+      "id": "15",
+      "doctor_user_id": "2",
+      "day_of_week": "Friday",
+      "slot_number": "3",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": "1",
+      "created_at": "2025-08-23 22:23:18",
+      "updated_at": "2025-08-23 22:23:18"
+    }
+  ]
+}

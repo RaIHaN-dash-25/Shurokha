@@ -1,6 +1,7 @@
+/* Admin Dashboard Styles */
 :root {
   --admin-primary: #1e3a8a;
-  --admin-accent: #eab308;
+  --admin-accent: #eab308; /* gold accent for admin */
 }
 .dashboard-sidebar .nav-link.active {
   background: var(--admin-accent);
@@ -19,4 +20,3 @@
   border: 1.5px solid #eab30833;
   backdrop-filter: blur(6px);
 } 
-

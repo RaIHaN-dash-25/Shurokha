@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shurokha – Maternal Health & Awareness Platform</title>
-  <link rel="icon" type="image/png" href="pictures/logo-transparent.png">
+  <link rel="icon" type="image/png" href="logo-transparent.png">
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
-
 <body>
+  <!-- Header/Navbar -->
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
       <div class="container">
@@ -33,12 +35,13 @@
     </nav>
   </header>
 
+  <!-- Hero Section -->
   <section id="hero" class="hero-section d-flex align-items-center justify-content-center text-center">
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-7 text-lg-start text-center">
           <div class="text-lg-start text-center mb-4">
-            <img src="pictures/logo-transparent.png" alt="Shurokha Logo" class="mb-3" style="width: 40vw; height: 40vh; max-width: 400px; max-height: 300px; object-fit: contain;">
+            <img src="logo-transparent.png" alt="Shurokha Logo" class="mb-3" style="width: 40vw; height: 40vh; max-width: 400px; max-height: 300px; object-fit: contain;">
           </div>
           <h1 class="display-3 fw-bold mb-3 animate__animated animate__fadeInDown">Maternal Health & Awareness</h1>
           <p class="lead mb-4 animate__animated animate__fadeInUp">Empowering mothers with knowledge, support, and care </p>
@@ -49,12 +52,13 @@
           </div>
         </div>
         <div class="col-lg-5 d-none d-lg-block">
-          <img src="pictures/pexels-theweddingfog-2995347.jpg" alt="Mother and Baby" class="img-fluid hero-img animate__animated animate__zoomIn">
+          <img src="pexels-theweddingfog-2995347.jpg" alt="Mother and Baby" class="img-fluid hero-img animate__animated animate__zoomIn">
         </div>
       </div>
     </div>
   </section>
 
+  <!-- About Section -->
   <section id="about" class="about-section py-5 bg-white animate__animated animate__fadeInUp">
     <div class="container">
       <div class="row justify-content-center">
@@ -66,6 +70,7 @@
     </div>
   </section>
 
+  <!-- Features Section -->
   <section id="features" class="features-section py-5 bg-light">
     <div class="container">
       <div class="row text-center mb-4">
@@ -94,9 +99,7 @@
         <div class="col-md-4">
           <div class="card h-100 shadow feature-card animate__animated animate__flipInY animate__delay-3s">
             <div class="card-body text-center">
-              <div class="mb-3"><i class="bi bi-person-heart fs-1 text-info"></i>
-              </i>
-              </div>
+              <div class="mb-3"><i class="bi bi-baby fs-1 text-info"></i></div>
               <h5 class="card-title text-info">Baby Tracker</h5>
               <p class="card-text">Track baby’s growth, vaccinations, and developmental milestones.</p>
             </div>
@@ -129,7 +132,7 @@
             </div>
           </div>
         </div>
-
+        <!-- Additional animated cards -->
         <div class="col-md-4">
           <div class="card h-100 shadow feature-card animate__animated animate__fadeInLeft animate__delay-2s">
             <div class="card-body text-center">
@@ -161,6 +164,7 @@
     </div>
   </section>
 
+  <!-- Statistics Section -->
   <section id="stats" class="stats-section py-5 bg-white animate__animated animate__fadeInUp">
     <div class="container">
       <div class="row text-center mb-4">
@@ -200,6 +204,7 @@
     </div>
   </section>
 
+  <!-- Testimonials Section -->
   <section id="testimonials" class="testimonials-section py-5 bg-light animate__animated animate__fadeInUp">
     <div class="container">
       <div class="row text-center mb-4">
@@ -232,6 +237,7 @@
     </div>
   </section>
 
+  <!-- Partners Section -->
   <section id="partners" class="partners-section py-5 bg-white animate__animated animate__fadeInUp">
     <div class="container">
       <div class="row text-center mb-4">
@@ -255,6 +261,7 @@
     </div>
   </section>
 
+  <!-- Contact Section -->
   <section id="contact" class="contact-section py-5 bg-white animate__animated animate__fadeInUp">
     <div class="container">
       <div class="row justify-content-center align-items-center">
@@ -298,14 +305,18 @@
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="footer bg-primary text-white text-center py-3 mt-5 animate__animated animate__fadeInUp">
     <div class="container">
       <small>&copy; 2024 Shurokha. All rights reserved.</small>
     </div>
   </footer>
 
+  <!-- Animate.css CDN for more animations -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
   <script src="js/main.js"></script>
 </body>
 </html> 
